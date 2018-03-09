@@ -1,0 +1,19 @@
+{
+  "name": "food-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chasewhitney/food-tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chasewhitney/food-tracker/issues"
+  },
+  "homepage": "https://github.com/chasewhitney/food-tracker#readme"
+}

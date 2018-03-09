@@ -1,1 +1,1 @@
-# food-tracker
+MEAN stack personal meal/nutrition tracker
