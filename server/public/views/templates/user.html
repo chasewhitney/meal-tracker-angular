@@ -1,0 +1,7 @@
+<header ng-include="'/views/partials/header.html'"></header>
+<div ng-include="'views/partials/nav.html'"></div>
+
+<div class="container">
+    <h1>Welcome, {{uc.userObject.userName}}!</h1>
+    <button ng-click="uc.userService.logout()">Log Out</button>
+</div>

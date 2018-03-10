@@ -1,1 +1,5 @@
-console.log('info.controller.js sourced');
+myApp.controller('InfoController', function(UserService) {
+  console.log('InfoController created');
+  var vm = this;
+  vm.userService = UserService;
+});
