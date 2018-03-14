@@ -47,12 +47,12 @@ body, html {
   float:right;
   margin-right:250px;
   margin-top:250px;
-
 }
 
 .loginBox > h1 {
   font-size: 84px;
   margin-bottom: 15px;
+
 }
 
 .loginBox form {
