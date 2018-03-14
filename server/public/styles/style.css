@@ -40,8 +40,9 @@ body, html {
   min-width: 800px;
   min-height: 300px;
   /* background-color:gray; */
+  text-shadow: 1px 1px grey;
   text-align:center;
-  color:black;
+  font-weight: 600;
   float:right;
   margin-right:250px;
   margin-top:250px;
@@ -50,16 +51,9 @@ body, html {
 
 .loginBox > h1 {
   font-size: 84px;
-  font-weight: 600;
-  text-shadow: 1px 1px grey;
   margin-bottom: 15px;
 }
 
-.loginBox form {
-  text-align:center;
-  font-weight: 600;
-  text-shadow: 1px 1px grey;
-}
 .container p {
   margin-top : 14px;
 }
