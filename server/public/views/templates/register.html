@@ -1,20 +1,21 @@
-<header ng-include="'/views/partials/header.html'"></header>
-<div ng-include="'views/partials/nav.html'"></div>
-
-<div class="container">
+<div class="home">
+<img src="../styles/chopping-board1.jpg">
+<div class="">
+<div class="loginBox">
   <h1>Register User</h1>
-  <h1 role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
+  <h2 role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
   <form ng-submit="lc.registerUser()">
     <div>
-        <label for="username">Username:</label>
+        <label for="username">Create username:</label>
         <input type="text" ng-model="lc.user.username" />
     </div>
     <div>
-        <label for="password">Password:</label>
+        <label for="password">Create password:</label>
         <input type="password" ng-model="lc.user.password" />
     </div>
     <input type="submit" name="submit" value="Register" />
     <a href="#home">Cancel</a>
   </form>
-
+</div>
+</div>
 </div>

@@ -40,7 +40,8 @@ body, html {
   min-width: 800px;
   min-height: 300px;
   /* background-color:gray; */
-  text-shadow: 1px 1px grey;
+  text-shadow: 1px 1px #D5C4A7;
+  color:#466800;
   text-align:center;
   font-weight: 600;
   float:right;
@@ -52,6 +53,15 @@ body, html {
 .loginBox > h1 {
   font-size: 84px;
   margin-bottom: 15px;
+}
+
+.loginBox form {
+  font-size:20px;
+  font-weight:600;
+}
+
+.loginBox a {
+  color:#466800;
 }
 
 .container p {
