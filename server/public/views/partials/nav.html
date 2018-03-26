@@ -1,8 +1,22 @@
-<div class="navbar">
-  <div class="container">
-    <ul>
-      <li><a href="#/user">User Home</a></li>
-      <li><a href="#/info">Info Page</a></li>
-    </ul>
+<div class="navbar" layout="row">
+
+  <div class="">
+    <h2>Fit-Tracker</h2>
+  </div>
+
+  <div layout="column" flex>
+    <div layout="row" flex="40" layout-align="end start">
+      <button ng-click="uc.userService.logout()">Log Out</button>
+    </div>
+
+    <div layout="row" flex="60" layout-align="start end">
+      <div>
+      <ul>
+        <li><a href="#/user">User Home</a></li>
+        <li><a href="#/info">TESTING</a></li>
+      </ul>
+      </div>
+    </div>
+
   </div>
 </div>
