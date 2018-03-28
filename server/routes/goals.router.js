@@ -5,10 +5,9 @@ var path = require('path');
 var Goals = require('../models/userGoals.js');
 var User = require('../models/user.js');
 
-
+// Sends user's goals to client
 router.get('/', function(req, res) {
   var userName = req.user.username;
-  console.log('username:', userName);
   Goals.find({username:userName}).exec(
     function(err, data) {
       if(err) {
@@ -18,6 +17,21 @@ router.get('/', function(req, res) {
         console.log('RESULTS:', data);
         res.send(data);
       }
+  });
+});
+
+// Updates user's nutritional goals
+router.put('/', function(req,res){
+  var data = req.body.data;
+  Goals.findOneAndUpdate({username: req.user.username},{calories: data.calories, carbohydrates: data.carbohydrates, cholesterol: data.cholesterol, fat: data.fat, fiber: data.fiber, protein: data.protein, sodium: data.sodium, sugar: data.sugar},
+  function(err, dbUser) {
+    if(err) {
+      console.log('ERROR updating goals: ', err);
+      res.sendStatus(500);
+    } else {
+      console.log('Success:', dbUser );
+      res.sendStatus(201);
+    }
   });
 });
 
