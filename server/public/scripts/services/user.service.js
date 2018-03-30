@@ -3,6 +3,14 @@ myApp.factory('UserService', function($http, $location){
 
   var userObject = {};
 
+  getGoals = function(){
+    $http.get('/goals').then(function(response){
+      userObject.goals = response.data[0];
+    });
+  };
+  
+  getGoals();
+
   return {
     userObject : userObject,
 

@@ -31,6 +31,15 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
+    .when('/meals', {
+      templateUrl: '/views/templates/meals.html',
+      controller: 'MealsController as mc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
     .when('/goals', {
       templateUrl: '/views/templates/goals.html',
       controller: 'GoalsController as gc',

@@ -3,15 +3,7 @@ myApp.controller('GoalsController', function(UserService, $http, $location) {
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
-
-
-  // Gets user's nutritional goals
-  getGoals = function(){
-    $http.get('/goals').then(function(response){
-      console.log('goals:', response.data[0]);
-      vm.goals = response.data[0];
-    });
-  };
+  vm.goals = vm.userObject.goals;
 
   vm.editGoals = function(){
     console.log('in editGoals');
@@ -30,5 +22,5 @@ myApp.controller('GoalsController', function(UserService, $http, $location) {
     $location.path('/goals');
   };
 
-  getGoals();
+  // getGoals();
 });
