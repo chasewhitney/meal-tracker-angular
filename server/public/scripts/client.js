@@ -22,7 +22,7 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
-    .when('/info', {
+    .when('/testing', {
       templateUrl: '/views/templates/testing.html',
       controller: 'TestingController',
       resolve: {
