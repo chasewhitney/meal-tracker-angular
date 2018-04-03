@@ -32,7 +32,73 @@
       <h1>TODAY</h1>
     </div>
     <div class="">
-      TODAYS MEALS
+      TODAY'S TOTALS
+    </div>
+    <div layout="row" class="totalList">
+      <div class="">
+        {{mc.todayTotal.calories}}cal
+      </div>
+      <div class="">
+        {{mc.todayTotal.fat}}g fat
+      </div>
+      <div class="">
+        {{mc.todayTotal.cholesterol}}mg cholesterol
+      </div>
+      <div class="">
+        {{mc.todayTotal.carbohydrates}}g carbs
+      </div>
+      <div class="">
+        {{mc.todayTotal.Fiber}}g fiber
+      </div>
+      <div class="">
+        {{mc.todayTotal.sugar}}g sugar
+      </div>
+      <div class="">
+        {{mc.todayTotal.protein}}g protein
+      </div>
+      <div class="">
+        {{mc.todayTotal.sodium}}mg sodium
+      </div>
+    </div>
+    <div class="">
+      TODAY'S MEALS
+    </div>
+    <div ng-repeat="item in mc.today" layout="row" class="todayList">
+      <div>
+        {{item.servings}} svg - {{item.name}}
+      </div>
+      <div layout="column">
+        <div class="">
+          {{item.calories}}calories
+        </div>
+        <div class="">
+          {{item.fat}}g fat
+        </div>
+      </div>
+      <div layout="column">
+        <div class="">
+          {{item.cholesterol}}mg cholesterol
+        </div>
+        <div class="">
+          {{item.carbohydrates}}g carbs
+        </div>
+      </div>
+      <div layout="column">
+        <div class="">
+          {{item.fiber}}g fiber
+        </div>
+        <div class="">
+          {{item.sugar}}g sugar
+        </div>
+      </div>
+      <div layout="column">
+        <div class="">
+          {{item.protein}}g protein
+        </div>
+        <div class="">
+          {{item.sodium}}g sodium
+        </div>
+      </div>
     </div>
   </div>
 

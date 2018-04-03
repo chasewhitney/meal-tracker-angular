@@ -4,7 +4,6 @@ myApp.controller('MealsController', function(UserService, $http) {
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
 
-
   vm.createMealEntry = function(name, servings){
     console.log('in createMealEntry with vm.mealToEnter:', vm.mealToEnter);
     for (var key in vm.mealToEnter) {
@@ -28,10 +27,24 @@ myApp.controller('MealsController', function(UserService, $http) {
 
   getTodayProgress = function(){
     $http.get('/meals/getTodayProgress').then(function(response){
-      vm.today = response;
+      vm.today = response.data;
       console.log('vm.today is:', vm.today);
+      calcDailyTotal(vm.today)
     });
   };
+
+  calcDailyTotal = function(today){
+    console.log('calculating totals');
+    vm.todayTotal = angular.copy(today[0]);
+    for (var i = 1; i < today.length; i++) {
+      for (var key in today[i]) {
+        var b = today[i];
+        vm.todayTotal[key] += b[key];
+      }
+    }
+  };
+
+
 
   getGoals();
   getTodayProgress();
