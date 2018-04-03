@@ -1,0 +1,19 @@
+<div class="">
+  ADD A MEAL
+</div>
+<div class="">
+<br>Name: <input type="text" ng-model="mealName">
+<br>Servings: <input type="number" ng-model="mealServings">
+<br>Calories (per serving): <input type="number" ng-model="mc.mealToEnter.calories">
+<br>Fat(g): <input type="number" ng-model="mc.mealToEnter.fat">
+<br>Cholesterol(mg): <input type="number" ng-model="mc.mealToEnter.cholesterol">
+<br>Carbohydrates(g): <input type="number" ng-model="mc.mealToEnter.carbohydrates">
+<br>Fiber(g): <input type="number" ng-model="mc.mealToEnter.fiber">
+<br>Sugar(g): <input type="number" ng-model="mc.mealToEnter.sugar">
+<br>Protein(g): <input type="number" ng-model="mc.mealToEnter.protein">
+<br>Sodium(mg): <input type="number" ng-model="mc.mealToEnter.sodium">
+<br><br>
+<md-button class="md-raised md-primary" type="button" name="button" ng-click="mc.setView('views/partials/mealsDefault.html')">CANCEL</md-button>
+<md-button class="md-raised md-primary" type="button" name="button" ng-click="mc.createMealEntry(mealName, mealServings)">SAVE</md-button>
+
+</div>

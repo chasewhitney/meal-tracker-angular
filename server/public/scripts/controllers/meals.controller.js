@@ -1,8 +1,9 @@
-myApp.controller('MealsController', function(UserService, $http) {
+myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdPanel) {
   console.log('MealsController created');
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
+  vm.view = 'views/partials/mealsDefault.html';
 
   vm.createMealEntry = function(name, servings){
     console.log('in createMealEntry with vm.mealToEnter:', vm.mealToEnter);
@@ -17,6 +18,10 @@ myApp.controller('MealsController', function(UserService, $http) {
       vm.mealToEnter = {};
       getTodayProgress();
     });
+  };
+
+  vm.setView = function(view){
+    vm.view = view;
   };
 
   getGoals = function(){
@@ -43,8 +48,6 @@ myApp.controller('MealsController', function(UserService, $http) {
       }
     }
   };
-
-
 
   getGoals();
   getTodayProgress();

@@ -3,14 +3,17 @@
 <div class="container mealsHead">
     <h1>{{mc.userObject.userName}}'s meal tracking</h1>
 </div>
-
+<button type="button" name="button" ng-click="mc.showDialog()">TEST</button>
 <div class="mealsMain" layout="row">
 
   <div class="mealsCol" layout="column" flex="50">
     <div class="mealsHead">
       <h1>MEALS</h1>
     </div>
-    <div class="">
+
+
+  <ng-include src="mc.view">
+    <!-- <div class="">
       ADD A MEAL
     </div>
     <br>Name: <input type="text" ng-model="mealName">
@@ -25,6 +28,7 @@
     <br>Sodium(mg): <input type="number" ng-model="mc.mealToEnter.sodium">
     <br><br>
     <md-button class="md-raised md-primary" type="button" name="button" ng-click="mc.createMealEntry(mealName, mealServings)">SAVE</md-button>
+    -->
   </div>
 
   <div class="mealsTodayCol"layout="column" flex="50">
