@@ -5,14 +5,14 @@ var path = require('path');
 var MealEntry = require('../models/mealEntry.js');
 var User = require('../models/user.js');
 
-// Handles POST request with new user data
+
 router.post('/createEntry', function(req, res, next) {
   console.log('log the data: ', req.body);
   console.log('log the user: ', req.user);
-
   var mealObject = req.body;
   mealObject.username = req.user.username;
-  mealObject.date = new Date();
+  var today = new Date();
+  mealObject.date = new Date(today.getFullYear(), (today.getMonth()), today.getDate());
 
   MealEntry.create(mealObject, function(err, post) {
     if(err) {
@@ -23,7 +23,21 @@ router.post('/createEntry', function(req, res, next) {
       res.sendStatus(201);
     }
   });
+});
 
+router.get('/getTodayProgress', function(req, res) {
+  // find (select) all documents in our collection
+  var today = new Date();
+  searchDate = new Date(today.getFullYear(), (today.getMonth()), today.getDate());
+  MealEntry.find({date: searchDate}, function(err, data) {
+    if(err) {
+      console.log('find error:', err);
+      res.sendStatus(500);
+    } else {
+      res.send(data);
+      // res.send(result.rows)
+    }
+  });
 });
 
 router.get('/*', function(req, res) {

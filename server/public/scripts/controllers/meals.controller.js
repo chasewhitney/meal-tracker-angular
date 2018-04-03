@@ -16,6 +16,7 @@ myApp.controller('MealsController', function(UserService, $http) {
     $http.post('/meals/createEntry', vm.mealToEnter).then(function(response){
       console.log('got response from PUT /meals/createEntry');
       vm.mealToEnter = {};
+      getTodayProgress();
     });
   };
 
@@ -25,7 +26,15 @@ myApp.controller('MealsController', function(UserService, $http) {
     });
   };
 
+  getTodayProgress = function(){
+    $http.get('/meals/getTodayProgress').then(function(response){
+      vm.today = response;
+      console.log('vm.today is:', vm.today);
+    });
+  };
+
   getGoals();
+  getTodayProgress();
 
 
 
