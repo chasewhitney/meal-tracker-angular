@@ -6,9 +6,10 @@ var Schema = mongoose.Schema;
 var MealEntrySchema = new Schema({
     username: {type: String, required: true},
     date: {type: Object, required: true},
-    time: {type: String},
+    // time: {type: String},
     name: {type: String, required: true},
-    photo: {type: String},
+    // photo: {type: String},
+    servings: {type: Number},
     calories: {type: Number},
     cholesterol: {type: Number},
     fiber: {type: Number},

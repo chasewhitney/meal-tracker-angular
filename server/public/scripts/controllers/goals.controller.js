@@ -3,7 +3,6 @@ myApp.controller('GoalsController', function(UserService, $http, $location) {
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
-  vm.goals = vm.userObject.goals;
 
   vm.editGoals = function(){
     console.log('in editGoals');
@@ -22,5 +21,11 @@ myApp.controller('GoalsController', function(UserService, $http, $location) {
     $location.path('/goals');
   };
 
-  // getGoals();
+  getGoals = function(){
+    $http.get('/goals').then(function(response){
+      vm.goals = response.data[0];
+    });
+  };
+
+  getGoals();
 });
