@@ -21,6 +21,8 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
       vm.mealServingSize = '';
       vm.mealServings = '';
       vm.getTodayProgress();
+      vm.view = 'views/partials/mealsDefault.html'
+      vm.setView(vm.view);
     });
   };
 
@@ -51,7 +53,7 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
 
   // Gets history for specific date ///UNUSED SO FAR///
   vm.getHistoricalDaily = function(){
-    
+
   };
 
 
