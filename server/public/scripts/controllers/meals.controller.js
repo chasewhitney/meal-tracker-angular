@@ -5,19 +5,29 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
   vm.userObject = UserService.userObject;
   vm.view = 'views/partials/mealsDefault.html';
 
-  vm.createMealEntry = function(name, servings){
+  vm.createMealEntry = function(name, servingSize, servings){
     console.log('in createMealEntry with vm.mealToEnter:', vm.mealToEnter);
     for (var key in vm.mealToEnter) {
       vm.mealToEnter[key] *= servings;
     }
     vm.mealToEnter.name = name;
+    vm.mealToEnter.servingSize = servingSize;
     vm.mealToEnter.servings = servings;
     console.log('in createMealEntry sending vm.mealToEnter:', vm.mealToEnter);
     $http.post('/meals/createEntry', vm.mealToEnter).then(function(response){
       console.log('got response from PUT /meals/createEntry');
       vm.mealToEnter = {};
-      getTodayProgress();
+      vm.mealName = '';
+      vm.mealServingSize = '';
+      vm.mealServings = '';
+      vm.getTodayProgress();
     });
+  };
+
+
+  ///UNUSED SO FAR////
+  vm.saveToFavorites = function(item){
+    console.log('in saveToFavorites');
   };
 
   vm.setView = function(view){
@@ -30,13 +40,20 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
     });
   };
 
-  getTodayProgress = function(){
+  // Gets meal history for today
+  vm.getTodayProgress = function(){
     $http.get('/meals/getTodayProgress').then(function(response){
       vm.today = response.data;
       console.log('vm.today is:', vm.today);
       calcDailyTotal(vm.today)
     });
   };
+
+  // Gets history for specific date ///UNUSED SO FAR///
+  vm.getHistoricalDaily = function(){
+    
+  };
+
 
   calcDailyTotal = function(today){
     console.log('calculating totals');
@@ -50,7 +67,7 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
   };
 
   getGoals();
-  getTodayProgress();
+  vm.getTodayProgress();
 
 
 

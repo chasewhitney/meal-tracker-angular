@@ -1,71 +1,92 @@
 <div ng-include="'views/partials/nav.html'"></div>
 
-<div class="container mealsHead">
-    <h1>{{mc.userObject.userName}}'s meal tracking</h1>
-</div>
-
 <div class="mealsMain" layout="row">
 
-  <div class="mealsCol" layout="column" flex="50">
+  <div class="mealsCol" layout="column" flex="40">
     <div class="mealsHead">
       <h1>MEALS</h1>
     </div>
 
-
   <ng-include src="mc.view">
-    <!-- <div class="">
-      ADD A MEAL
-    </div>
-    <br>Name: <input type="text" ng-model="mealName">
-    <br>Servings: <input type="number" ng-model="mealServings">
-    <br>Calories (per serving): <input type="number" ng-model="mc.mealToEnter.calories">
-    <br>Fat(g): <input type="number" ng-model="mc.mealToEnter.fat">
-    <br>Cholesterol(mg): <input type="number" ng-model="mc.mealToEnter.cholesterol">
-    <br>Carbohydrates(g): <input type="number" ng-model="mc.mealToEnter.carbohydrates">
-    <br>Fiber(g): <input type="number" ng-model="mc.mealToEnter.fiber">
-    <br>Sugar(g): <input type="number" ng-model="mc.mealToEnter.sugar">
-    <br>Protein(g): <input type="number" ng-model="mc.mealToEnter.protein">
-    <br>Sodium(mg): <input type="number" ng-model="mc.mealToEnter.sodium">
-    <br><br>
-    <md-button class="md-raised md-primary" type="button" name="button" ng-click="mc.createMealEntry(mealName, mealServings)">SAVE</md-button>
-    -->
+
   </div>
 
-  <div class="mealsTodayCol"layout="column" flex="50">
+  <div class="mealsTodayCol"layout="column" flex="60">
     <div class="mealsHead">
-      <h1>TODAY</h1>
-    </div>
-    <div class="">
-      TODAY'S TOTALS
+      <h1>TODAY'S ENTRIES</h1>
     </div>
     <div layout="row" class="totalList">
-      <div class="">
-        {{mc.todayTotal.calories}}cal
+      <div id="dailyTotals">
+        TOTALS:
       </div>
-      <div class="">
-        {{mc.todayTotal.fat}}g fat
+
+      <div layout="column">
+        <div class="dailyTotalsLabel">
+          Calories
+        </div>
+        <div class="dailyTotalsValue">
+          {{mc.todayTotal.calories | number: 0}}
+        </div>
       </div>
-      <div class="">
-        {{mc.todayTotal.cholesterol}}mg cholesterol
+      <div layout="column">
+        <div class="dailyTotalsLabel">
+          Fat
+        </div>
+        <div class="dailyTotalsValue">
+          {{mc.todayTotal.fat | number: 0}}g
+        </div>
       </div>
-      <div class="">
-        {{mc.todayTotal.carbohydrates}}g carbs
+      <div layout="column">
+        <div class="dailyTotalsLabel">
+           Cholesterol
+        </div>
+        <div class="dailyTotalsValue">
+          {{mc.todayTotal.cholesterol | number: 0}}mg
+        </div>
       </div>
-      <div class="">
-        {{mc.todayTotal.Fiber}}g fiber
+      <div layout="column">
+        <div class="dailyTotalsLabel">
+          Carbs
+        </div>
+        <div class="dailyTotalsValue">
+          {{mc.todayTotal.carbohydrates | number: 0}}g
+        </div>
       </div>
-      <div class="">
-        {{mc.todayTotal.sugar}}g sugar
+      <div layout="column">
+        <div class="dailyTotalsLabel">
+           Fiber
+        </div>
+        <div class="dailyTotalsValue">
+          {{mc.todayTotal.fiber | number: 0}}g
+        </div>
       </div>
-      <div class="">
-        {{mc.todayTotal.protein}}g protein
+      <div layout="column">
+        <div class="dailyTotalsLabel">
+          Sugar
+        </div>
+        <div class="dailyTotalsValue">
+          {{mc.todayTotal.sugar | number: 0}}g
+        </div>
       </div>
-      <div class="">
-        {{mc.todayTotal.sodium}}mg sodium
+      <div layout="column">
+        <div class="dailyTotalsLabel">
+           Protein
+        </div>
+        <div class="dailyTotalsValue">
+          {{mc.todayTotal.protein | number: 0}}g
+        </div>
       </div>
-    </div>
-    <div class="">
-      TODAY'S MEALS
+      <div layout="column">
+        <div class="dailyTotalsLabel">
+          Sodium
+        </div>
+        <div class="dailyTotalsValue">
+          {{mc.todayTotal.sodium | number: 0}}mg
+        </div>
+      </div>
+
+
+
     </div>
     <div ng-repeat="item in mc.today" layout="row" class="todayList">
       <div>
@@ -73,36 +94,37 @@
       </div>
       <div layout="column">
         <div class="">
-          {{item.calories}}calories
+          {{item.calories | number: 0}} calories
         </div>
         <div class="">
-          {{item.fat}}g fat
+          {{item.fat | number: 0}}g fat
         </div>
       </div>
       <div layout="column">
         <div class="">
-          {{item.cholesterol}}mg cholesterol
+          {{item.cholesterol | number: 0}}mg cholesterol
         </div>
         <div class="">
-          {{item.carbohydrates}}g carbs
+          {{item.carbohydrates | number: 0}}g carbs
         </div>
       </div>
       <div layout="column">
         <div class="">
-          {{item.fiber}}g fiber
+          {{item.fiber | number: 0}}g fiber
         </div>
         <div class="">
-          {{item.sugar}}g sugar
+          {{item.sugar | number: 0}}g sugar
         </div>
       </div>
       <div layout="column">
         <div class="">
-          {{item.protein}}g protein
+          {{item.protein | number: 0}}g protein
         </div>
         <div class="">
-          {{item.sodium}}g sodium
+          {{item.sodium | number: 0}}mg sodium
         </div>
       </div>
+      <md-button class="md-raised md-primary" ng-click="mc.saveToFavorites(item)">Save to Favorites</md-button>
     </div>
   </div>
 

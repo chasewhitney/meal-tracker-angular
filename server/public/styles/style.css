@@ -95,6 +95,26 @@ li a:hover {
   padding:5px;
 }
 
-.totalList > div{
+.totalList {
+  border-bottom: 1px solid black;
+}
+
+.totalList > div {
   padding:5px;
+  margin:5px;
+
+}
+
+#dailyTotals {
+  font-size: 32px;
+}
+
+.dailyTotalsLabel {
+  font-size:24px;
+  text-align:center;
+}
+
+.dailyTotalsValue {
+  font-size:24px;
+  text-align:center;
 }

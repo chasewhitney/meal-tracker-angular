@@ -3,11 +3,10 @@ var router = express.Router();
 var passport = require('passport');
 var path = require('path');
 var MealEntry = require('../models/mealEntry.js');
+var MealFavorite = require('../models/mealFavorite.js');
 var User = require('../models/user.js');
 
 router.post('/createEntry', function(req, res, next) {
-  console.log('log the data: ', req.body);
-  console.log('log the user: ', req.user);
   var mealObject = req.body;
   mealObject.username = req.user.username;
   var today = new Date();
@@ -18,6 +17,20 @@ router.post('/createEntry', function(req, res, next) {
       next(err);
     } else {
       console.log('post MealEntry.create -- success');
+      res.sendStatus(201);
+    }
+  });
+});
+
+router.post('/addFavorite', function(req, res, next) {
+  var favObject = req.body;
+  favObject.username = req.user.username;
+  MealFavorite.create(mealObject, function(err, post) {
+    if(err) {
+      console.log('post MealFavorite.create -- failure');
+      next(err);
+    } else {
+      console.log('post MealFavorite.create -- success');
       res.sendStatus(201);
     }
   });

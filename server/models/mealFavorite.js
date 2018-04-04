@@ -3,14 +3,11 @@ var Schema = mongoose.Schema;
 
 
 // Mongoose Schema
-var MealEntrySchema = new Schema({
+var MealFavoriteSchema = new Schema({
     username: {type: String, required: true},
-    date: {type: Object, required: true},
-    // time: {type: String},
     name: {type: String, required: true},
     // photo: {type: String},
-    servingSize: {type: String},
-    servings: {type: Number},
+    // servings: {type: Number},
     calories: {type: Number},
     cholesterol: {type: Number},
     fiber: {type: Number},
@@ -22,4 +19,4 @@ var MealEntrySchema = new Schema({
 });
 
 
-module.exports = mongoose.model('MealEntry', MealEntrySchema);
+module.exports = mongoose.model('MealFavorite', MealFavoriteSchema);
