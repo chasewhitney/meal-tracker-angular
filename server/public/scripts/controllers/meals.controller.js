@@ -29,7 +29,23 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
 
   ///UNUSED SO FAR////
   vm.saveToFavorites = function(item){
-    console.log('in saveToFavorites');
+    console.log('in saveToFavorites with:', item);
+      var mealToFavorite = {};
+      mealToFavorite.calories = item.calories;
+      mealToFavorite.carbohydrates = item.carbohydrates;
+      mealToFavorite.cholesterol = item.cholesterol;
+      mealToFavorite.fat = item.fat;
+      mealToFavorite.fiber = item.fiber;
+      mealToFavorite.name = item.name;
+      mealToFavorite.protein = item.protein;
+      mealToFavorite.sodium = item.sodium;
+      mealToFavorite.sugar = item.sugar;
+      mealToFavorite.servingSize = item.servingSize;
+    console.log('in saveToFavorites with:', mealToFavorite);
+    $http.post('/meals/addFavorite', mealToFavorite).then(function(response){
+      console.log('got response from PUT /meals/createEntry');
+      ///// ADD CONFIRMATION DIALOG /////
+    });
   };
 
   vm.setView = function(view){

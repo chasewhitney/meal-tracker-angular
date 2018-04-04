@@ -25,7 +25,7 @@ router.post('/createEntry', function(req, res, next) {
 router.post('/addFavorite', function(req, res, next) {
   var favObject = req.body;
   favObject.username = req.user.username;
-  MealFavorite.create(mealObject, function(err, post) {
+  MealFavorite.create(favObject, function(err, post) {
     if(err) {
       console.log('post MealFavorite.create -- failure');
       next(err);

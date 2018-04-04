@@ -8,6 +8,7 @@ var MealFavoriteSchema = new Schema({
     name: {type: String, required: true},
     // photo: {type: String},
     // servings: {type: Number},
+    servingSize: {type: String},
     calories: {type: Number},
     cholesterol: {type: Number},
     fiber: {type: Number},
