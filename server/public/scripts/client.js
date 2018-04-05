@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial','ui.bootstrap']);
 
 /// Routes ///
 myApp.config(function($routeProvider, $locationProvider) {
@@ -24,7 +24,7 @@ myApp.config(function($routeProvider, $locationProvider) {
     })
     .when('/testing', {
       templateUrl: '/views/templates/testing.html',
-      controller: 'TestingController',
+      controller: 'TestingController as tc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();

@@ -1,31 +1,24 @@
-myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdPanel) {
+myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdPanel, $scope, $modal, $log) {
   console.log('MealsController created');
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
   vm.view = 'views/partials/mealsDefault.html';
 
-  vm.createMealEntry = function(name, servingSize, servings){
-    console.log('in createMealEntry with vm.mealToEnter:', vm.mealToEnter);
-    for (var key in vm.mealToEnter) {
-      vm.mealToEnter[key] *= servings;
+  vm.createMealEntry = function(name, servingSize, servings, meal){
+    mealToEnter = meal;
+    for (var key in mealToEnter) {
+      mealToEnter[key] *= servings;
     }
-    vm.mealToEnter.name = name;
-    vm.mealToEnter.servingSize = servingSize;
-    vm.mealToEnter.servings = servings;
-    console.log('in createMealEntry sending vm.mealToEnter:', vm.mealToEnter);
-    $http.post('/meals/createEntry', vm.mealToEnter).then(function(response){
+    mealToEnter.name = name;
+    mealToEnter.servingSize = servingSize;
+    mealToEnter.servings = servings;
+    console.log('in createMealEntry sending mealToEnter:', mealToEnter);
+    $http.post('/meals/createEntry', mealToEnter).then(function(response){
       console.log('got response from PUT /meals/createEntry');
-      vm.mealToEnter = {};
-      vm.mealName = '';
-      vm.mealServingSize = '';
-      vm.mealServings = '';
       vm.getTodayProgress();
-      vm.view = 'views/partials/mealsDefault.html'
-      vm.setView(vm.view);
     });
   };
-
 
   ///UNUSED SO FAR////
   vm.saveToFavorites = function(item){
@@ -88,5 +81,41 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
   vm.getTodayProgress();
 
 
+  // ADD MEALS MODAL
+  $scope.status = '  ';
+  $scope.customFullscreen = false;
 
+  $scope.showAdvanced = function(ev) {
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: '/views/partials/addMealTemplate.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+  };
+
+  function DialogController($scope, $mdDialog) {
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+
+    $scope.createEntry = function(name, servingSize, servings, meal) {
+      console.log('name, size, servings:', name, servingSize, servings, meal);
+      vm.createMealEntry(name, servingSize, servings, meal);
+      $mdDialog.hide();
+    };
+
+    // $scope.createEntryFavorite = function(name, servingSize, servings, meal) {
+    //   console.log('name, size, servings:', name, servingSize, servings, meal);
+    //   vm.createMealEntry(name, servingSize, servings, meal);
+    //   $mdDialog.hide();
+    // };
+  }
+  // END ADD MEALS MODAL
 });

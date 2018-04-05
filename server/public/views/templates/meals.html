@@ -6,8 +6,9 @@
     <div class="mealsHead">
       <h1>MEALS</h1>
     </div>
-
-  <ng-include src="mc.view">
+<md-button class="md-raised md-primary" ng-click="showAdvanced($event)">Add an Item</md-button>
+<button type="button" name="button" ng-click="mc.setView('views/partials/addMeal.html')">Add from Favorites</button><br>
+<button type="button" name="button" ng-click="mc.setView('views/partials/addMeal.html')">Search API for Item</button>
 
   </div>
 

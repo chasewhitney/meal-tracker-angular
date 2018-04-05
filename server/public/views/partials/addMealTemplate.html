@@ -1,0 +1,31 @@
+<md-dialog aria-label="Add-an-item">
+  <!-- <form ng-cloak> -->
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add an Item</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="container">
+        <br>Name: <input type="text" ng-model="mealName">
+        <br>Serving size: <input type="text" ng-model="mealServingSize">
+        <br>Servings: <input type="number" ng-model="mealServings">
+        <br>Calories (per serving): <input type="number" ng-model="mealToEnter.calories">
+        <br>Fat(g): <input type="number" ng-model="mealToEnter.fat">
+        <br>Cholesterol(mg): <input type="number" ng-model="mealToEnter.cholesterol">
+        <br>Carbohydrates(g): <input type="number" ng-model="mealToEnter.carbohydrates">
+        <br>Fiber(g): <input type="number" ng-model="mealToEnter.fiber">
+        <br>Sugar(g): <input type="number" ng-model="mealToEnter.sugar">
+        <br>Protein(g): <input type="number" ng-model="mealToEnter.protein">
+        <br>Sodium(mg): <input type="number" ng-model="mealToEnter.sodium">
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-primary" type="button" name="button" ng-click="cancel()">CANCEL</md-button>
+      <md-button class="md-raised md-primary" type="button" name="button" ng-click="add(mealName, mealServingSize, mealServings, mealToEnter)">SAVE</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
