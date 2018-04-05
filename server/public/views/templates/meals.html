@@ -6,13 +6,22 @@
     <div class="mealsHead">
       <h1>MEALS</h1>
     </div>
-<md-button class="md-raised md-primary" ng-click="showAdvanced($event)">Add an Item</md-button>
-<button type="button" name="button" ng-click="mc.setView('views/partials/addMeal.html')">Add from Favorites</button><br>
-<button type="button" name="button" ng-click="mc.setView('views/partials/addMeal.html')">Search API for Item</button>
+    <md-button class="md-raised md-primary" ng-click="showModal($event)">Add an Item</md-button>
+    <button type="button" name="button" ng-click="mc.setView('views/partials/addMeal.html')">Add from Favorites</button><br>
+    <button type="button" name="button" ng-click="mc.setView('views/partials/addMeal.html')">Search API for Item</button>
+
+<div class="">
+  <h3 style="text-align:center">FAVORITES</h3>
+  <div ng-repeat="fav in mc.favorites">
+    {{fav.name}}
+  </div>
+</div>
 
   </div>
 
-  <div class="mealsTodayCol"layout="column" flex="60">
+<!-- PAGE DIVIDE -->
+
+  <div class="mealsTodayCol" layout="column" flex="60">
     <div class="mealsHead">
       <h1>TODAY'S ENTRIES</h1>
     </div>
@@ -39,7 +48,7 @@
       </div>
       <div layout="column">
         <div class="dailyTotalsLabel">
-           Cholesterol
+          Cholesterol
         </div>
         <div class="dailyTotalsValue">
           {{mc.todayTotal.cholesterol | number: 0}}mg
@@ -55,7 +64,7 @@
       </div>
       <div layout="column">
         <div class="dailyTotalsLabel">
-           Fiber
+          Fiber
         </div>
         <div class="dailyTotalsValue">
           {{mc.todayTotal.fiber | number: 0}}g
@@ -71,7 +80,7 @@
       </div>
       <div layout="column">
         <div class="dailyTotalsLabel">
-           Protein
+          Protein
         </div>
         <div class="dailyTotalsValue">
           {{mc.todayTotal.protein | number: 0}}g

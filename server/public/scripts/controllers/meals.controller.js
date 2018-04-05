@@ -16,11 +16,10 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
     console.log('in createMealEntry sending mealToEnter:', mealToEnter);
     $http.post('/meals/createEntry', mealToEnter).then(function(response){
       console.log('got response from PUT /meals/createEntry');
-      vm.getTodayProgress();
+      getTodayProgress();
     });
   };
 
-  ///UNUSED SO FAR////
   vm.saveToFavorites = function(item){
     console.log('in saveToFavorites with:', item);
       var mealToFavorite = {};
@@ -41,8 +40,12 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
     });
   };
 
-  vm.setView = function(view){
-    vm.view = view;
+
+  getFavorites = function(){
+    $http.get('/meals/getFavorites').then(function(response){
+      console.log('getFavorites response data is:', response.data);
+      vm.favorites = response.data;
+    });
   };
 
   getGoals = function(){
@@ -51,8 +54,9 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
     });
   };
 
+
   // Gets meal history for today
-  vm.getTodayProgress = function(){
+  getTodayProgress = function(){
     $http.get('/meals/getTodayProgress').then(function(response){
       vm.today = response.data;
       console.log('vm.today is:', vm.today);
@@ -78,14 +82,14 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
   };
 
   getGoals();
-  vm.getTodayProgress();
-
+  getTodayProgress();
+  getFavorites();
 
   // ADD MEALS MODAL
   $scope.status = '  ';
   $scope.customFullscreen = false;
 
-  $scope.showAdvanced = function(ev) {
+  $scope.showModal = function(ev) {
     $mdDialog.show({
       controller: DialogController,
       templateUrl: '/views/partials/addMealTemplate.html',
@@ -111,11 +115,15 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
       $mdDialog.hide();
     };
 
-    // $scope.createEntryFavorite = function(name, servingSize, servings, meal) {
-    //   console.log('name, size, servings:', name, servingSize, servings, meal);
-    //   vm.createMealEntry(name, servingSize, servings, meal);
-    //   $mdDialog.hide();
-    // };
+    $scope.createEntryFavorite = function(name, servingSize, servings, meal) {
+      console.log('name, size, servings:', name, servingSize, servings, meal);
+      vm.createMealEntry(name, servingSize, servings, meal);
+      var favMeal = meal;
+      favMeal.name = name;
+      favMeal.servingSize = servingSize;
+      vm.saveToFavorites(favMeal);
+      $mdDialog.hide();
+    };
   }
   // END ADD MEALS MODAL
 });

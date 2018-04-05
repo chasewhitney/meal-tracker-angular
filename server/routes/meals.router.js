@@ -36,6 +36,19 @@ router.post('/addFavorite', function(req, res, next) {
   });
 });
 
+router.get('/getFavorites', function(req, res, next) {
+  var username = req.user.username;
+  MealFavorite.find({username: username}, function(err, data) {
+    if(err) {
+      console.log('get MealFavorites.find -- failure');
+      next(err);
+    } else {
+      console.log('get MealFavorite.find -- success');
+      res.send(data);
+    }
+  });
+});
+
 router.get('/getTodayProgress', function(req, res) {
   var username = req.user.username;
   var today = new Date();

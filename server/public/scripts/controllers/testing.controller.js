@@ -13,7 +13,7 @@ myApp.controller('TestingController', function(UserService, $scope, $modal, $log
   $scope.status = '  ';
   $scope.customFullscreen = false;
 
-  $scope.showAdvanced = function(ev) {
+  $scope.showModal = function(ev) {
     $mdDialog.show({
       controller: DialogController,
       templateUrl: '/views/partials/dialog-template.html',
