@@ -118,3 +118,10 @@ li a:hover {
   font-size:24px;
   text-align:center;
 }
+
+md-dialog-content {
+  padding:20px;
+}
+md-dialog-content div{
+  margin:2px;
+}
