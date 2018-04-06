@@ -7,9 +7,14 @@
       </div>
     </md-toolbar>
 
-    <md-dialog-content>
-      Selected: {{favObject.name}}
-      Servings?: <input type="number" name="numberServings" ng-model="favObject.servings">
+    <md-dialog-content class="favsDialogContent">
+      <div>
+        {{favObject.name}}
+      </div>
+      <div>
+        Servings: <input type="number" name="numberServings" ng-model="favObject.servings">
+      </div>
+
 
     </md-dialog-content>
 

@@ -1,6 +1,6 @@
 <div ng-include="'views/partials/nav.html'"></div>
 
-<div class="mealsMain" layout="row">
+<div class="mealsMain" layout="row" flex-offset="5" flex="90">
 
   <div class="mealsCol" layout="column" flex="20">
 
@@ -13,22 +13,22 @@
 
 
 
-<div class="">
-  <h3 style="text-align:center">FAVORITES</h3>
-  <div ng-repeat="fav in mc.favorites" style="border: 1px solid black" ng-click="mc.clickFavoriteModal($event, fav)">
-    {{fav.name}}
-  </div>
-</div>
+    <div class="favorites">
+      <h3>FAVORITES</h3>
+      <div ng-repeat="fav in mc.favorites" class="favMeal" ng-click="mc.clickFavoriteModal($event, fav)">
+        {{fav.name}}
+      </div>
+    </div>
 
   </div>
 
-<!-- PAGE DIVIDE -->
+  <!-- PAGE DIVIDE -->
 
   <div class="mealsTodayCol" layout="column" flex="80">
     <div class="mealsHead">
       <h1>TODAY'S ENTRIES</h1>
     </div>
-    <div layout="row" class="totalList">
+    <div layout="row" layout-align="center center" class="totalList">
       <div id="dailyTotals">
         TOTALS:
       </div>
@@ -93,7 +93,18 @@
 
 
     </div>
-    <div ng-repeat="item in mc.today" layout="row" class="todayList">
+    <div ng-repeat="item in mc.today" layout="row" layout-align="start center" class="todayList">
+      <div layout="row" layout-align="center center" class="itemBarGraph">
+        <div class="itemBarFat" ng-style="{width: {{item.fatPercent}} + 'px'}">
+
+        </div>
+        <div class="itemBarProtein" ng-style="{width: {{item.proteinPercent}} + 'px'}">
+
+        </div>
+        <div class="itemBarCarbs" ng-style="{width: {{item.carbPercent}} + 'px'}">
+
+        </div>
+      </div>
       <div>
         {{item.servings}} svg - {{item.name}}
       </div>

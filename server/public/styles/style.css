@@ -119,9 +119,42 @@ li a:hover {
   text-align:center;
 }
 
-md-dialog-content {
+.newEntryDialog {
   padding:20px;
 }
-md-dialog-content div{
+.newEntryDialog div{
+  margin:2px;
+}
+
+.itemBarGraph{
+  width:100px;
+}
+
+.itemBarFat{
+  background-color:green;height:20px
+}
+
+.itemBarProtein{
+  background-color:blue;height:20px
+}
+
+.itemBarCarbs{
+  background-color:red;height:20px
+}
+
+.favorites h3{
+  text-align:center;
+}
+
+.favMeal {
+  border: 1px solid black;
+}
+
+.favsDialogContent {
+  text-align:center;
+  font-weight:600;
+}
+
+.favsDialogContent div{
   margin:2px;
 }

@@ -6,6 +6,8 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   vm.ms = MealsService;
   vm.view = 'views/partials/mealsDefault.html';
 
+  vm.flexx = 45;
+
   vm.createMealEntry = function(name, servingSize, servings, meal){
     mealToEnter = meal;
     for (var key in mealToEnter) {
@@ -63,7 +65,8 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     $http.get('/meals/getTodayProgress').then(function(response){
       vm.today = response.data;
       console.log('vm.today is:', vm.today);
-      calcDailyTotal(vm.today)
+      calcDailyTotal(vm.today);
+      calcCaloricComposition(vm.today);
     });
   };
 
@@ -81,6 +84,16 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
         var b = today[i];
         vm.todayTotal[key] += b[key];
       }
+    }
+  };
+
+  calcCaloricComposition = function(today){
+    console.log('calculation caloric compositions');
+    for (var i = 0; i < today.length; i++) {
+      today[i].fatPercent = ((9 * today[i].fat) / today[i].calories) * 100;
+      today[i].proteinPercent = ((4 * today[i].protein) / today[i].calories) * 100;
+      today[i].carbPercent = 100 - today[i].fatPercent - today[i].proteinPercent;
+      console.log('F,P,C:',today[i].fatPercent,today[i].proteinPercent,today[i].carbPercent);
     }
   };
 
