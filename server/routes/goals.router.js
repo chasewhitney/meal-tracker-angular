@@ -23,7 +23,7 @@ router.get('/', function(req, res) {
 // Updates user's nutritional goals
 router.put('/', function(req,res){
   var data = req.body.data;
-  Goals.findOneAndUpdate({username: req.user.username},{calories: data.calories, carbohydrates: data.carbohydrates, cholesterol: data.cholesterol, fat: data.fat, fiber: data.fiber, protein: data.protein, sodium: data.sodium, sugar: data.sugar},
+  Goals.findOneAndUpdate({username: req.user.username},{calories: data.calories, carbohydrates: data.carbohydrates, fat: data.fat, fiber: data.fiber, protein: data.protein, sodium: data.sodium, sugar: data.sugar},
   function(err, dbUser) {
     if(err) {
       console.log('ERROR updating goals: ', err);

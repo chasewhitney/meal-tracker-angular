@@ -23,7 +23,6 @@ router.post('/', function(req, res, next) {
   var defaultUserGoals = {
     username: req.body.username,
     calories: [2000,2000],
-    cholesterol: [300,300],
     fiber: [25,25],
     protein: [50,50],
     sodium: [2400,2400],

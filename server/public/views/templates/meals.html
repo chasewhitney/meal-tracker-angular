@@ -6,9 +6,8 @@
 
     <div class="">
 
-      <md-button class="md-raised md-primary" ng-click="showModal($event)">Add an Item</md-button><br>
-      <button type="button" name="button" ng-click="mc.setView('views/partials/addMeal.html')">Add from Favorites</button><br>
-      <button type="button" name="button" ng-click="mc.setView('views/partials/addMeal.html')">Search API for Item</button>
+      <md-button class="md-raised md-primary" ng-click="mc.addEntryModal($event)">Add an Item</md-button><br>
+      <button type="button" name="button" ng-click="">Search API for Item</button>
     </div>
 
 
@@ -16,7 +15,7 @@
 
 <div class="">
   <h3 style="text-align:center">FAVORITES</h3>
-  <div ng-repeat="fav in mc.favorites">
+  <div ng-repeat="fav in mc.favorites" style="border: 1px solid black" ng-click="mc.clickFavoriteModal($event, fav)">
     {{fav.name}}
   </div>
 </div>
@@ -48,14 +47,6 @@
         </div>
         <div class="dailyTotalsValue">
           {{mc.todayTotal.fat | number: 0}}g
-        </div>
-      </div>
-      <div layout="column">
-        <div class="dailyTotalsLabel">
-          Cholesterol
-        </div>
-        <div class="dailyTotalsValue">
-          {{mc.todayTotal.cholesterol | number: 0}}mg
         </div>
       </div>
       <div layout="column">
@@ -115,9 +106,6 @@
         </div>
       </div>
       <div layout="column">
-        <div class="">
-          {{item.cholesterol | number: 0}}mg cholesterol
-        </div>
         <div class="">
           {{item.carbohydrates | number: 0}}g carbs
         </div>

@@ -12,7 +12,6 @@ var MealEntrySchema = new Schema({
     servingSize: {type: String},
     servings: {type: Number},
     calories: {type: Number},
-    cholesterol: {type: Number},
     fiber: {type: Number},
     protein: {type: Number},
     sodium: {type: Number},

@@ -1,0 +1,22 @@
+<md-dialog aria-label="Add-an-item">
+  <!-- <form ng-cloak> -->
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add from Favorites</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      Selected: {{favObject.name}}
+      Servings?: <input type="number" name="numberServings" ng-model="favObject.servings">
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-primary" type="button" name="button" ng-click="cancel()">Cancel</md-button>
+      <md-button class="md-raised md-primary" type="button" name="button" ng-click="addEntry(favObject)">Add</md-button>
+
+    </md-dialog-actions>
+  </form>
+</md-dialog>

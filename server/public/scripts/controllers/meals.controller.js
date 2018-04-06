@@ -1,8 +1,9 @@
-myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdPanel, $scope, $modal, $log) {
+myApp.controller('MealsController', function(UserService, MealsService, $http, $mdDialog, $mdPanel, $scope, $modal, $log) {
   console.log('MealsController created');
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
+  vm.ms = MealsService;
   vm.view = 'views/partials/mealsDefault.html';
 
   vm.createMealEntry = function(name, servingSize, servings, meal){
@@ -25,7 +26,6 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
       var mealToFavorite = {};
       mealToFavorite.calories = item.calories;
       mealToFavorite.carbohydrates = item.carbohydrates;
-      mealToFavorite.cholesterol = item.cholesterol;
       mealToFavorite.fat = item.fat;
       mealToFavorite.fiber = item.fiber;
       mealToFavorite.name = item.name;
@@ -45,6 +45,9 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
     $http.get('/meals/getFavorites').then(function(response){
       console.log('getFavorites response data is:', response.data);
       vm.favorites = response.data;
+      for (var i = 0; i < vm.favorites.length; i++) {
+        vm.favorites[i].servings = 1;
+      }
     });
   };
 
@@ -86,13 +89,27 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
   getFavorites();
 
   // ADD MEALS MODAL
-  $scope.status = '  ';
-  $scope.customFullscreen = false;
+  // $scope.status = '  ';
+  var customFullscreen = false;
 
-  $scope.showModal = function(ev) {
+  vm.addEntryModal = function(ev) {
     $mdDialog.show({
       controller: DialogController,
       templateUrl: '/views/partials/addMealTemplate.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: customFullscreen // Only for -xs, -sm breakpoints.
+    })
+  };
+
+  vm.clickFavoriteModal = function(ev, favObject) {
+    console.log('favorite clicked:', favObject);
+    vm.ms.favObject = favObject;
+
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: '/views/partials/addFromFavorites.html',
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true,
@@ -100,7 +117,11 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
     })
   };
 
-  function DialogController($scope, $mdDialog) {
+  function DialogController(MealsService, $scope, $mdDialog) {
+    $scope.favObject = MealsService.favObject
+    testTest = function(obj){
+      console.log('in test with:', obj);
+    }
     $scope.hide = function() {
       $mdDialog.hide();
     };
@@ -124,6 +145,27 @@ myApp.controller('MealsController', function(UserService, $http, $mdDialog, $mdP
       vm.saveToFavorites(favMeal);
       $mdDialog.hide();
     };
+
+    $scope.addEntry = function(favObj){
+      var favToEnter = {};
+      favToEnter.servings = favObj.servings;
+      favToEnter.name = favObj.name;
+      favToEnter.servingSize = favObj.servingSize;
+      favToEnter.calories = favObj.calories * favObj.servings;
+      favToEnter.carbohydrates = favObj.carbohydrates * favObj.servings;
+      favToEnter.fat = favObj.fat * favObj.servings;
+      favToEnter.fiber = favObj.fiber * favObj.servings;
+      favToEnter.protein = favObj.protein * favObj.servings;
+      favToEnter.sodium = favObj.sodium * favObj.servings;
+      favToEnter.sugar = favObj.sugar * favObj.servings;
+
+      $http.post('/meals/createEntry', favToEnter).then(function(response){
+        console.log('got response from PUT /meals/createEntry');
+        $mdDialog.hide();
+        getTodayProgress();
+      });
+    };
+
   }
   // END ADD MEALS MODAL
 });

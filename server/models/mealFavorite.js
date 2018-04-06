@@ -10,7 +10,6 @@ var MealFavoriteSchema = new Schema({
     // servings: {type: Number},
     servingSize: {type: String},
     calories: {type: Number},
-    cholesterol: {type: Number},
     fiber: {type: Number},
     protein: {type: Number},
     sodium: {type: Number},

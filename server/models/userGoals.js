@@ -6,7 +6,6 @@ var Schema = mongoose.Schema;
 var UserGoalsSchema = new Schema({
     username: {type: String, required: true},
     calories: {type: Array},
-    cholesterol: {type: Array},
     fiber: {type: Array},
     protein: {type: Array},
     sodium: {type: Array},
