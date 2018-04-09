@@ -75,16 +75,16 @@ li a:hover {
   text-decoration: underline;
 }
 
-.mealsHead {
-  text-align: center;
-}
 
 .mealsCol {
   border-right: 1px solid black;
 }
 
-.mealsHead h1 {
+.mealsHead {
   border-bottom: 1px solid black;
+  text-align: center;
+  padding-bottom: 10px;
+  margin-top:-10px;
 }
 
 .mealsCol input{
@@ -148,6 +148,11 @@ li a:hover {
 
 .favMeal {
   border: 1px solid black;
+  margin:2px;
+  padding:4px;
+  border-radius: 5px;
+  background-color:lightblue;
+  cursor:pointer;
 }
 
 .favsDialogContent {
@@ -157,4 +162,8 @@ li a:hover {
 
 .favsDialogContent div{
   margin:2px;
+}
+
+.todayListServings{
+  text-align:right;
 }

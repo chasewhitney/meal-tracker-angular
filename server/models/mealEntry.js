@@ -18,6 +18,7 @@ var MealEntrySchema = new Schema({
     sugar: {type: Number},
     carbohydrates: {type: Number},
     fat: {type: Number},
+    addedFromFavorites: {type: Boolean}
 });
 
 

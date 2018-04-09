@@ -2,7 +2,7 @@
 
 <div class="mealsMain" layout="row" flex-offset="5" flex="90">
 
-  <div class="mealsCol" layout="column" flex="20">
+  <div class="mealsCol" layout="column" flex="20" layout-align="start center">
 
     <div class="">
 
@@ -105,10 +105,13 @@
 
         </div>
       </div>
-      <div>
-        {{item.servings}} svg - {{item.name}}
+      <div flex="5" class="todayListServings">
+        {{item.servings}} svg:
       </div>
-      <div layout="column">
+      <div flex="20">
+        {{item.name}}
+      </div>
+      <div flex="10" layout="column">
         <div class="">
           {{item.calories | number: 0}} calories
         </div>
@@ -116,12 +119,12 @@
           {{item.fat | number: 0}}g fat
         </div>
       </div>
-      <div layout="column">
+      <div flex="10" layout="column">
         <div class="">
           {{item.carbohydrates | number: 0}}g carbs
         </div>
       </div>
-      <div layout="column">
+      <div flex="10" layout="column">
         <div class="">
           {{item.fiber | number: 0}}g fiber
         </div>
@@ -129,7 +132,7 @@
           {{item.sugar | number: 0}}g sugar
         </div>
       </div>
-      <div layout="column">
+      <div flex="10" layout="column">
         <div class="">
           {{item.protein | number: 0}}g protein
         </div>
@@ -137,7 +140,29 @@
           {{item.sodium | number: 0}}mg sodium
         </div>
       </div>
-      <md-button class="md-raised md-primary" ng-click="mc.saveToFavorites(item)">Save to Favorites</md-button>
+      <!-- <md-button class="md-raised md-primary" ng-click="mc.saveToFavorites(item)">Save to Favorites</md-button> -->
+      <md-menu>
+     <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="mc.openMenu($mdMenu, $event, item)">
+       BUTTON
+     </md-button>
+     <md-menu-content width="4">
+       <md-menu-item >
+         <md-button ng-disabled="mc.menuItem.addedFromFavorites" ng-click="mc.test()">
+           Add to Favorites
+         </md-button>
+       </md-menu-item>
+       <md-menu-item>
+         <md-button ng-click="mc.test()">
+           Edit
+         </md-button>
+       </md-menu-item>
+       <md-menu-item>
+         <md-button ng-click="mc.test()">
+           Delete
+         </md-button>
+       </md-menu-item>
+     </md-menu-content>
+   </md-menu>
     </div>
   </div>
 

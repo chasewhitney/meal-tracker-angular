@@ -4,10 +4,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
   vm.ms = MealsService;
-  vm.view = 'views/partials/mealsDefault.html';
-
-  vm.flexx = 45;
-
+vm.disabled = "disabled";
   vm.createMealEntry = function(name, servingSize, servings, meal){
     mealToEnter = meal;
     for (var key in mealToEnter) {
@@ -101,7 +98,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   getTodayProgress();
   getFavorites();
 
-  // ADD MEALS MODAL
   // $scope.status = '  ';
   var customFullscreen = false;
 
@@ -131,10 +127,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   };
 
   function DialogController(MealsService, $scope, $mdDialog) {
-    $scope.favObject = MealsService.favObject
-    testTest = function(obj){
-      console.log('in test with:', obj);
-    }
+    $scope.favObject = MealsService.favObject;
     $scope.hide = function() {
       $mdDialog.hide();
     };
@@ -171,6 +164,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       favToEnter.protein = favObj.protein * favObj.servings;
       favToEnter.sodium = favObj.sodium * favObj.servings;
       favToEnter.sugar = favObj.sugar * favObj.servings;
+      favToEnter.addedFromFavorites = true;
 
       $http.post('/meals/createEntry', favToEnter).then(function(response){
         console.log('got response from PUT /meals/createEntry');
@@ -180,5 +174,22 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     };
 
   }
-  // END ADD MEALS MODAL
+  // BEGIN SELECT MENU
+
+
+
+      vm.openMenu = function($mdMenu, ev, item) {
+        console.log('in openMenu(), item is:', item);
+        $mdMenu.open(ev);
+        vm.menuItem = item;
+        console.log('vm.menuItem is:', vm.menuItem);
+      };
+
+      vm.test = function(){
+        console.log('in test function with item:', vm.menuItem);
+      }
+
+
+
+
 });
