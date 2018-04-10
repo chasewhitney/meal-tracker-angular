@@ -76,6 +76,21 @@ router.delete('/deleteFavorite/:id', function(req,res){
   });
 });
 
+router.put('/updateFavorite', function(req,res){
+  var fav = req.body;
+  fav.username = req.user.username;
+  MealFavorite.findOneAndUpdate({_id: fav._id},{name: fav.name, calories: fav.calories, carbohydrates: fav.carbohydrates, fat: fav.fat, fiber: fav.fiber, protein: fav.protein, sodium: fav.sodium, sugar: fav.sugar, servingSize: fav.servingSize},
+  function(err, favorite) {
+    if(err) {
+      console.log('ERROR in meals/updateFavorite: ', err);
+      res.sendStatus(500);
+    } else {
+      console.log('SUCCESS in meals/updateFavorite! Found and updated:', favorite );
+      res.sendStatus(201);
+    }
+  });
+});
+
 router.get('/*', function(req, res) {
   console.log('404 : ', req.params);
   res.sendStatus(404);

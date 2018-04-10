@@ -127,8 +127,29 @@ vm.disabled = "disabled";
     })
   };
 
+
+  editFavoriteModal = function(ev) {
+    console.log('in editFavoriteModal editing:', vm.ms.favObject);
+
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: '/views/partials/editFavorite.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+  };
+
   function DialogController(MealsService, $scope, $mdDialog) {
     $scope.favObject = MealsService.favObject;
+
+    $scope.edit = function(ev) {
+      $mdDialog.hide();
+      editFavoriteModal(ev);
+
+    };
+
     $scope.hide = function() {
       $mdDialog.hide();
     };
@@ -185,6 +206,14 @@ vm.disabled = "disabled";
       });
     };
 
+    $scope.updateFavorite = function(fav){
+      console.log('updating favorite:', fav);
+      $http.put('/meals/updateFavorite', fav).then(function(response){
+        console.log('got response from PUT /meals/updateFavorite');
+        $mdDialog.hide();
+        getFavorites();
+      });
+    };
   }
   // BEGIN SELECT MENU
 

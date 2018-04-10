@@ -14,13 +14,22 @@
       <div>
         Servings: <input type="number" name="numberServings" ng-model="favObject.servings">
       </div>
+      <div>Serving size: {{favObject.servingSize}}</div>
 
+      <div>Calories (per serving): {{favObject.calories}}</div>
+      <div>Fat(g): {{favObject.fat}}</div>
+
+      <div>Carbohydrates(g): {{favObject.carbohydrates}}</div>
+      <div>Fiber(g): {{favObject.fiber}}</div>
+      <div>Sugar(g): {{favObject.sugar}}</div>
+      <div>Protein(g): {{favObject.protein}}</div>
+      <div>Sodium(mg): {{favObject.sodium}}</div>
 
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
       <md-button class="md-raised md-primary" type="button" name="button" ng-click="cancel()">Cancel</md-button>
-      <md-button class="md-raised md-primary" type="button" name="button" ng-click="edit()">Edit</md-button>
+      <md-button class="md-raised md-primary" type="button" name="button" ng-click="edit($event)">Edit</md-button>
       <md-button class="md-raised md-primary" type="button" name="button" ng-click="delete(favObject)">Delete</md-button>
       <md-button class="md-raised md-primary" type="button" name="button" ng-click="addEntry(favObject)">Add</md-button>
 
