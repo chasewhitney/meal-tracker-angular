@@ -7,7 +7,7 @@
     <div class="">
 
       <md-button class="md-raised md-primary" ng-click="mc.addEntryModal($event)">Add an Item</md-button><br>
-      <button type="button" name="button" ng-click="">Search API for Item</button>
+      <md-button class="md-raised md-primary" ng-click="">Search API for Item</md-button>
     </div>
 
 
@@ -142,9 +142,7 @@
       </div>
       <!-- <md-button class="md-raised md-primary" ng-click="mc.saveToFavorites(item)">Save to Favorites</md-button> -->
       <md-menu>
-     <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="mc.openMenu($mdMenu, $event, item)">
-       BUTTON
-     </md-button>
+     <md-button class="md-raised md-primary" ng-click="mc.openMenu($mdMenu, $event, item)">OPTIONS</md-button>
      <md-menu-content width="4">
        <md-menu-item  ng-if="!mc.menuItem.addedFromFavorites">
          <md-button ng-click="mc.saveToFavorites(item)">
