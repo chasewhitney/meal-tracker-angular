@@ -2,15 +2,12 @@
   <!-- <form ng-cloak> -->
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Add from Favorites</h2>
-        <span flex></span>
+        <h1>{{favObject.name}}</h1>
       </div>
     </md-toolbar>
 
     <md-dialog-content class="favsDialogContent">
-      <div>
-        {{favObject.name}}
-      </div>
+
       <div>Serving size: {{favObject.servingSize}}</div>
       <div>
         Servings: <input type="number" name="numberServings" ng-model="favObject.servings">
@@ -29,9 +26,13 @@
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button class="md-raised md-primary" type="button" name="button" ng-click="cancel()">Cancel</md-button>
+
+
+      <md-button class="md-raised md-warn" type="button" name="button" ng-click="delete(favObject)">Delete</md-button>
       <md-button class="md-raised md-primary" type="button" name="button" ng-click="edit($event)">Edit</md-button>
-      <md-button class="md-raised md-primary" type="button" name="button" ng-click="delete(favObject)">Delete</md-button>
+      <span flex></span>
+      <md-button class="md-raised md-primary" type="button" name="button" ng-click="cancel()">Cancel</md-button>
+
       <md-button class="md-raised md-primary" type="button" name="button" ng-click="addEntry(favObject)">Add</md-button>
 
     </md-dialog-actions>

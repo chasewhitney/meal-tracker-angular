@@ -128,10 +128,11 @@ li a:hover {
 
 .itemBarGraph{
   width:100px;
+  border: 1px solid black;
 }
 
 .itemBarFat{
-  background-color:green;height:20px
+  background-color:green;height:20px;
 }
 
 .itemBarProtein{
@@ -158,6 +159,7 @@ li a:hover {
 .favsDialogContent {
   text-align:center;
   font-weight:600;
+  min-width:500px;
 }
 
 .favsDialogContent div{
@@ -166,4 +168,10 @@ li a:hover {
 
 .todayListServings{
   text-align:right;
+}
+
+.md-toolbar-tools{
+  font-size: 28px;
+  margin-left:auto;
+  margin-right:auto;
 }
