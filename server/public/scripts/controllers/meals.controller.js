@@ -35,6 +35,7 @@ vm.disabled = "disabled";
     console.log('in saveToFavorites with:', mealToFavorite);
     $http.post('/meals/addFavorite', mealToFavorite).then(function(response){
       console.log('got response from PUT /meals/createEntry');
+      getFavorites();
       ///// ADD CONFIRMATION DIALOG /////
     });
   };
@@ -136,6 +137,16 @@ vm.disabled = "disabled";
       $mdDialog.cancel();
     };
 
+    $scope.delete = function(fav) {
+      console.log("in delete with:", fav);
+      $http.delete('/meals/deleteFavorite/' + fav._id).then(function(response){
+        console.log('Favorite deleted.');
+        getFavorites();
+        $mdDialog.hide();
+      });
+
+    };
+
     $scope.createEntry = function(name, servingSize, servings, meal) {
       console.log('name, size, servings:', name, servingSize, servings, meal);
       vm.createMealEntry(name, servingSize, servings, meal);
@@ -148,6 +159,7 @@ vm.disabled = "disabled";
       var favMeal = meal;
       favMeal.name = name;
       favMeal.servingSize = servingSize;
+      favMeal.addedFromFavorites = true;
       vm.saveToFavorites(favMeal);
       $mdDialog.hide();
     };

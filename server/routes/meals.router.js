@@ -63,6 +63,19 @@ router.get('/getTodayProgress', function(req, res) {
   });
 });
 
+router.delete('/deleteFavorite/:id', function(req,res){
+  var favId = req.params.id;
+  MealFavorite.findByIdAndRemove(favId,
+  function(err, event) {
+    if(err) {
+      res.sendStatus(500);
+    } else {
+      console.log('Success. Deleted favorite.', event);
+      res.sendStatus(200);
+    }
+  });
+});
+
 router.get('/*', function(req, res) {
   console.log('404 : ', req.params);
   res.sendStatus(404);

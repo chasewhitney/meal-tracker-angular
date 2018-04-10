@@ -146,8 +146,8 @@
        BUTTON
      </md-button>
      <md-menu-content width="4">
-       <md-menu-item >
-         <md-button ng-disabled="mc.menuItem.addedFromFavorites" ng-click="mc.test()">
+       <md-menu-item  ng-if="!mc.menuItem.addedFromFavorites">
+         <md-button ng-click="mc.saveToFavorites(item)">
            Add to Favorites
          </md-button>
        </md-menu-item>
