@@ -66,11 +66,24 @@ router.get('/getTodayProgress', function(req, res) {
 router.delete('/deleteFavorite/:id', function(req,res){
   var favId = req.params.id;
   MealFavorite.findByIdAndRemove(favId,
-  function(err, event) {
+  function(err, favorite) {
     if(err) {
       res.sendStatus(500);
     } else {
-      console.log('Success. Deleted favorite.', event);
+      console.log('Success. Deleted favorite.', favorite);
+      res.sendStatus(200);
+    }
+  });
+});
+
+router.delete('/deleteEntry/:id', function(req,res){
+  var entryId = req.params.id;
+  MealEntry.findByIdAndRemove(entryId,
+  function(err, entry) {
+    if(err) {
+      res.sendStatus(500);
+    } else {
+      console.log('Success. Deleted entry.', entry);
       res.sendStatus(200);
     }
   });
@@ -85,7 +98,22 @@ router.put('/updateFavorite', function(req,res){
       console.log('ERROR in meals/updateFavorite: ', err);
       res.sendStatus(500);
     } else {
-      console.log('SUCCESS in meals/updateFavorite! Found and updated:', favorite );
+      console.log('SUCCESS in meals/updateFavorite! Found and updated:', favorite);
+      res.sendStatus(201);
+    }
+  });
+});
+
+router.put('/updateEntry', function(req,res){
+  var entry = req.body;
+  entry.username = req.user.username;
+  MealEntry.findOneAndUpdate({_id: entry._id},{name: entry.name, servings: entry.servings, servingSize: entry.servingSize, calories: entry.calories, carbohydrates: entry.carbohydrates, fat: entry.fat, fiber: entry.fiber, protein: entry.protein, sodium: entry.sodium, sugar: entry.sugar},
+  function(err, entry) {
+    if(err) {
+      console.log('ERROR in meals/updateEntry: ', err);
+      res.sendStatus(500);
+    } else {
+      console.log('SUCCESS in meals/updateEntry! Found and updated:', entry);
       res.sendStatus(201);
     }
   });

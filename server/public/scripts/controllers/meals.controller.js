@@ -127,6 +127,25 @@ vm.disabled = "disabled";
     })
   };
 
+  vm.deleteEntry = function(entry){
+    $http.delete('/meals/deleteEntry/' + entry._id).then(function(response){
+      console.log('Entry deleted.');
+      getTodayProgress();
+      $mdDialog.hide();
+    });
+  }
+
+  vm.editEntry = function(ev, entry){
+    vm.ms.entryToEdit = entry;
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: '/views/partials/editEntry.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: customFullscreen // Only for -xs, -sm breakpoints.
+      })
+  };
 
   editFavoriteModal = function(ev) {
     console.log('in editFavoriteModal editing:', vm.ms.favObject);
@@ -143,6 +162,7 @@ vm.disabled = "disabled";
 
   function DialogController(MealsService, $scope, $mdDialog) {
     $scope.favObject = MealsService.favObject;
+    $scope.entryToEdit = MealsService.entryToEdit;
 
     $scope.edit = function(ev) {
       $mdDialog.hide();
@@ -214,7 +234,17 @@ vm.disabled = "disabled";
         getFavorites();
       });
     };
+
+    $scope.updateEntry = function(entry){
+      console.log('updating entry:', entry);
+      $http.put('/meals/updateEntry', entry).then(function(response){
+        console.log('got response from PUT /meals/updateEntry');
+        $mdDialog.hide();
+        getTodayProgress();
+      });
+    };
   }
+
   // BEGIN SELECT MENU
 
 

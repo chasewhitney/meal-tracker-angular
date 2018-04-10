@@ -1,0 +1,32 @@
+<md-dialog aria-label="Edit-an-entry">
+  <!-- <form ng-cloak> -->
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Edit Entry</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content class="newEntryDialog">
+
+        <div>Name: <input type="text" ng-model="entryToEdit.name"></div>
+        <div>Serving size: <input type="text" ng-model="entryToEdit.servingSize"></div>
+        <div>Servings: <input type="number" ng-model="entryToEdit.servings"></div>
+        <div>Calories (per serving): <input type="number" ng-model="entryToEdit.calories"></div>
+        <div>Fat(g): <input type="number" ng-model="entryToEdit.fat"></div>
+
+        <div>Carbohydrates(g): <input type="number" ng-model="entryToEdit.carbohydrates"></div>
+        <div>Fiber(g): <input type="number" ng-model="entryToEdit.fiber"></div>
+        <div>Sugar(g): <input type="number" ng-model="entryToEdit.sugar"></div>
+        <div>Protein(g): <input type="number" ng-model="entryToEdit.protein"></div>
+        <div>Sodium(mg): <input type="number" ng-model="entryToEdit.sodium"></div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button class="md-raised md-primary" type="button" name="button" ng-click="cancel()">CANCEL</md-button>
+
+      <md-button class="md-raised md-primary" type="button" name="button" ng-click="updateEntry(entryToEdit)">UPDATE</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
