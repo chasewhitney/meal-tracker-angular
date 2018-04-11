@@ -14,6 +14,7 @@ var userRouter = require('./routes/user.router');
 var registerRouter = require('./routes/register.router');
 var goalsRouter = require('./routes/goals.router');
 var mealsRouter = require('./routes/meals.router');
+var apiRouter = require('./routes/api.router');
 
 var port = process.env.PORT || 5000;
 var API_KEY = process.env.API_KEY || require('../config.js').api_Key;
@@ -38,6 +39,7 @@ app.use('/register', registerRouter);
 app.use('/user', userRouter);
 app.use('/goals', goalsRouter);
 app.use('/meals', mealsRouter);
+app.use('/api', apiRouter);
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);
