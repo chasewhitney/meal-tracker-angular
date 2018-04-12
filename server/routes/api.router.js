@@ -2,14 +2,15 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var path = require('path');
+var request = require('request');
 
 var apiKey = process.env.API_KEY || require('../config.js').api_Key;
 var appId = process.env.APP_ID || require('../config.js').app_Id;
 
 router.get('/instant', function(req, res){
-  console.log('req.query:', req.query);
+  console.log('req.query.searchQuery:', req.query.searchQuery);
 
-  var toQuery = req.query.toQuery;
+  var toQuery = req.query.searchQuery;
   var options = {
     url: 'https://trackapi.nutritionix.com/v2/search/instant?query=' + toQuery,
     headers: {

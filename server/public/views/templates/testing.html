@@ -1,3 +1,23 @@
+<div style="margin-left:200px;margin-bottom:200px;margin-top:30px">
+  <input type="text" ng-keyup="tc.instantSearch(apiSearchText)" placeholder="Search me" ng-model="apiSearchText">
+</div>
+
 <div class="">
-  <input type="text" ng-keyup="tc.apiSearchInstant()" placeholder="Search me" ng-model="tc.apiSearchText">
+  <label for="">INSTANT QUERY</label>
+<input type="text" name="queryValuesInstant" id="instantQuery" ng-model="instantQuery">
+<!-- <label for="">URL</label>
+<input type="text" name="apiInput" id="url" value=""> -->
+<button type="button" name="button" ng-click="tc.instantSearch(instantQuery)">GO</button>
+<br><br>
+<label for="">COMMON QUERY (food_name)</label>
+<input type="text" name="queryValuesCommon" id="commonQuery" ng-model="commonQuery">
+<!-- <label for="">URL</label>
+<input type="text" name="apiInput" id="url" value=""> -->
+<button type="button" name="button" ng-click="tc.testCommon(commonQuery)">GO</button>
+<br><br>
+<label for="">BRANDED QUERY (nix_item_id)</label>
+<input type="text" name="queryValuesBranded" id="brandedQuery" ng-model="brandedQuery">
+<!-- <label for="">URL</label>
+<input type="text" name="apiInput" id="url" value=""> -->
+<button type="button" name="button" ng-click="tc.testBranded(brandedQuery)">GO</button>
 </div>
