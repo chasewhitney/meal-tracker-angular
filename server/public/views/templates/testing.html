@@ -1,23 +1,61 @@
-<div style="margin-left:200px;margin-bottom:200px;margin-top:30px">
-  <input type="text" ng-keyup="tc.instantSearch(apiSearchText)" placeholder="Search me" ng-model="apiSearchText">
+<div class="dropdown" style="margin-left:100px;margin-top:40px; width:300px">
+  <div>
+    <input id="apiSearchBox" type="text" ng-keyup="tc.instantSearch(apiSearchText)" placeholder="Search me" ng-model="apiSearchText">
+  </div>
+
+<!-- ng-show="(tc.instantData.branded.length > 0) || (tc.instantData.common.length > 0)" -->
+
+    <div id="myDropdown" class="dropdown-content" ng-show="(tc.instantData.branded.length > 0) || (tc.instantData.common.length > 0)">
+      <div ng-cloak>
+        <md-content>
+          <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="one">
+              <md-content class="md-padding">
+                <h1 class="md-display-2">Tab One</h1>
+                <p ng-repeat="food in tc.instantData.branded">
+                  {{food.food_name}}
+                </p>
+              </md-content>
+            </md-tab>
+            <md-tab label="two">
+              <md-content class="md-padding">
+                <h1 class="md-display-2">Tab Two</h1>
+              </md-content>
+            </md-tab>
+            <md-tab label="three">
+              <md-content class="md-padding">
+                <h1 class="md-display-2">Tab Three</h1>
+              </md-content>
+            </md-tab>
+          </md-tabs>
+        </md-content>
+      </div>
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </div>
+
 </div>
 
+<div style="min-height:200px;background-color:yellow;text-align:center">
+  <span ng-show="(tc.instantData.branded.length > 0) || (tc.instantData.common.length > 0)">WE HAVE DATA</span>
+</div>
 <div class="">
   <label for="">INSTANT QUERY</label>
-<input type="text" name="queryValuesInstant" id="instantQuery" ng-model="instantQuery">
-<!-- <label for="">URL</label>
-<input type="text" name="apiInput" id="url" value=""> -->
-<button type="button" name="button" ng-click="tc.instantSearch(instantQuery)">GO</button>
-<br><br>
-<label for="">COMMON QUERY (food_name)</label>
-<input type="text" name="queryValuesCommon" id="commonQuery" ng-model="commonQuery">
-<!-- <label for="">URL</label>
-<input type="text" name="apiInput" id="url" value=""> -->
-<button type="button" name="button" ng-click="tc.testCommon(commonQuery)">GO</button>
-<br><br>
-<label for="">BRANDED QUERY (nix_item_id)</label>
-<input type="text" name="queryValuesBranded" id="brandedQuery" ng-model="brandedQuery">
-<!-- <label for="">URL</label>
-<input type="text" name="apiInput" id="url" value=""> -->
-<button type="button" name="button" ng-click="tc.testBranded(brandedQuery)">GO</button>
+  <input type="text" name="queryValuesInstant" id="instantQuery" ng-model="instantQuery">
+  <!-- <label for="">URL</label>
+  <input type="text" name="apiInput" id="url" value=""> -->
+  <button type="button" name="button" ng-click="tc.instantSearch(instantQuery)">GO</button>
+  <br><br>
+  <label for="">COMMON QUERY (food_name)</label>
+  <input type="text" name="queryValuesCommon" id="commonQuery" ng-model="commonQuery">
+  <!-- <label for="">URL</label>
+  <input type="text" name="apiInput" id="url" value=""> -->
+  <button type="button" name="button" ng-click="tc.testCommon(commonQuery)">GO</button>
+  <br><br>
+  <label for="">BRANDED QUERY (nix_item_id)</label>
+  <input type="text" name="queryValuesBranded" id="brandedQuery" ng-model="brandedQuery">
+  <!-- <label for="">URL</label>
+  <input type="text" name="apiInput" id="url" value=""> -->
+  <button type="button" name="button" ng-click="tc.testBranded(brandedQuery)">GO</button>
 </div>

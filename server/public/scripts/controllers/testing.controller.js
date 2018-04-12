@@ -4,7 +4,6 @@ myApp.controller('TestingController', function(UserService, $scope, $modal, $log
   vm.userService = UserService;
 
 vm.testingVar = "TEST SUCCESS";
-
 vm.test = function(){
   console.log('testVar is:', vm.testVar);
 }
@@ -12,12 +11,15 @@ vm.test = function(){
 
 vm.instantSearch = function(toQuery){
   console.log("in instantSearch with:", toQuery);
+  vm.instantData ={};
   if (toQuery.length > 2) {
     var config = {params: {searchQuery: toQuery,}};
     $http.get('api/instant', config).then(function(response){
       console.log('Response from api/instant GET');
-      var data = response.data;
-        console.log('data:', data);
+      vm.instantData = response.data;
+        console.log('response:', response);
+        console.log('vm.instantData:', vm.instantData);
+
     });
   }
 };
