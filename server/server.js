@@ -17,8 +17,7 @@ var mealsRouter = require('./routes/meals.router');
 var apiRouter = require('./routes/api.router');
 
 var port = process.env.PORT || 5000;
-var API_KEY = process.env.API_KEY || require('../config.js').api_Key;
-var API_ID = process.env.API_ID || require('../config.js').api_Id;
+
 
 // Body parser middleware
 app.use(bodyParser.json());

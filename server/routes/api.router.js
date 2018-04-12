@@ -6,7 +6,7 @@ var path = require('path');
 var apiKey = process.env.API_KEY || require('../config.js').api_Key;
 var appId = process.env.APP_ID || require('../config.js').app_Id;
 
-app.get('/instant', function(req, res){
+router.get('/instant', function(req, res){
   console.log('req.query:', req.query);
 
   var toQuery = req.query.toQuery;
@@ -28,7 +28,7 @@ app.get('/instant', function(req, res){
   });
 });
 
-app.post('/common', function(req, res){
+router.post('/common', function(req, res){
   console.log('req.body:', req.body);
 
   var toQuery = req.body.toQuery;
@@ -56,7 +56,7 @@ app.post('/common', function(req, res){
   });
 });
 
-app.get('/branded', function(req, res){
+router.get('/branded', function(req, res){
   console.log('req.query:', req.query);
 
   var toQuery = req.query.toQuery;
