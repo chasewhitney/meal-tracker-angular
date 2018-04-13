@@ -24,6 +24,9 @@ vm.instantSearch = function(toQuery){
   }
 };
 
+//// AUTOLOAD FOR TEST ////
+// vm.instantSearch('wheat');
+
 vm.testCommon = function(toQuery){
   console.log("in test function");
   console.log("you entered:", toQuery);
@@ -56,5 +59,11 @@ vm.testBranded = function(toQuery){
   });
 }
 
+vm.selectCommon = function(item){
+  console.log('selected common:', item);
+}
 
+vm.selectBranded= function(item){
+  console.log('selected branded:', item);
+}
 });

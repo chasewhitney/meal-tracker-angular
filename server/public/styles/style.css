@@ -53,25 +53,25 @@ body, html {
   font-size:30px;
 }
 
-ul {
+.navbar ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-li {
+.navbar li {
   float: left;
 }
 
-li a {
+.navbar li a {
   display: block;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
 
-li a:hover {
+.navbar li a:hover {
   text-decoration: underline;
 }
 
@@ -180,28 +180,49 @@ li a:hover {
 /* BEGIN API SEARCH DROPDOWN */
 .dropdown {
     position: relative;
-    display: inline-block;
 }
 
 .dropdown-content {
     position: absolute;
     background-color: white;
-    min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     width:100%
 }
 
+ /* TESTING */
+/* .dropdown-content div{
+    border: 1px dotted black;
+} */
 
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
+.dropdown-content img{
+    max-width: 40px;
+    margin: 5px;
 }
 
-.dropdown-content a:hover {
+.dropdown-content h6 {
+
+    border-bottom: 1px solid black;
+    margin:5px;
+    padding:5px;
+}
+.dropdown-item {
+
+  border-bottom:1px solid grey;
+  padding:5px;
+
+}
+
+.dropdown-item:hover {
   background-color: #f1f1f1
+}
+
+.common-item {
+font-size: 18px;
+}
+
+.branded-item {
+  font-size: 12px;
 }
 
 #apiSearchBox{
