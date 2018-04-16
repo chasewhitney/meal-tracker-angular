@@ -5,18 +5,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   vm.userObject = UserService.userObject;
   vm.ms = MealsService;
 
-    
-  addCommonModal = function(ev) {
-    $mdDialog.show({
-      controller: DialogController,
-      templateUrl: '/views/partials/addFromCommon.html',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      clickOutsideToClose:true,
-      fullscreen: customFullscreen // Only for -xs, -sm breakpoints.
-    })
-  };
-
   calcCaloricComposition = function(today){
     console.log('calculation caloric compositions');
     for (var i = 0; i < today.length; i++) {
@@ -40,7 +28,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
 
   editFavoriteModal = function(ev) {
     console.log('in editFavoriteModal editing:', vm.ms.favObject);
-
     $mdDialog.show({
       controller: DialogController,
       templateUrl: '/views/partials/editFavorite.html',
@@ -187,13 +174,36 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   };
 
   // Run when a "branded" food item is selected from API search dropdown
-  vm.selectBranded = function(item){
+  vm.selectBranded = function(ev, item){
     console.log('selected branded:', item.nix_item_id);
     var config = {params:{toQuery:item.nix_item_id}};
     $http.get('/api/branded', config).then(function(response){
       console.log('got response');
       var data = response.data.foods[0];
       console.log('data:', data);
+      vm.ms.apiFoodObject = {};
+
+      vm.ms.apiFoodObject.name = data.food_name;
+      vm.ms.apiFoodObject.servingSize = data.serving_qty + data.serving_unit;
+      vm.ms.apiFoodObject.calories = parseInt(data.nf_calories);
+      vm.ms.apiFoodObject.fat = parseInt(data.nf_total_fat);
+      vm.ms.apiFoodObject.carbohydrates = parseInt(data.nf_total_carbohydrate);
+      vm.ms.apiFoodObject.fiber = parseInt(data.nf_dietary_fiber);
+      vm.ms.apiFoodObject.sugar = parseInt(data.nf_sugars);
+      vm.ms.apiFoodObject.protein = parseInt(data.nf_protein);
+      vm.ms.apiFoodObject.sodium = parseInt(data.nf_sodium);
+
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: '/views/partials/addFromCommon.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+      })
+
+
+
     });
   }
 
@@ -205,7 +215,29 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       console.log('got response');
       var data = response.data.foods[0];
       console.log('data:', data);
-      addCommonModal(ev);
+      vm.ms.apiFoodObject = {};
+
+      vm.ms.apiFoodObject.name = data.food_name;
+      vm.ms.apiFoodObject.servingSize = data.serving_qty + data.serving_unit;
+      vm.ms.apiFoodObject.calories = parseInt(data.nf_calories);
+      vm.ms.apiFoodObject.fat = parseInt(data.nf_total_fat);
+      vm.ms.apiFoodObject.carbohydrates = parseInt(data.nf_total_carbohydrate);
+      vm.ms.apiFoodObject.fiber = parseInt(data.nf_dietary_fiber);
+      vm.ms.apiFoodObject.sugar = parseInt(data.nf_sugars);
+      vm.ms.apiFoodObject.protein = parseInt(data.nf_protein);
+      vm.ms.apiFoodObject.sodium = parseInt(data.nf_sodium);
+
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: '/views/partials/addFromCommon.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+      })
+
+
+
     });
   };
 
@@ -214,10 +246,10 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     console.log('in test function with item:', vm.menuItem);
   }
 
-
   function DialogController(MealsService, $scope, $mdDialog) {
     $scope.favObject = MealsService.favObject;
     $scope.entryToEdit = MealsService.entryToEdit;
+    $scope.apiFoodObject = MealsService.apiFoodObject;
 
     $scope.edit = function(ev) {
       $mdDialog.hide();
@@ -260,7 +292,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       $mdDialog.hide();
     };
 
-    $scope.addEntry = function(favObj){
+    $scope.addEntry = function(favObj, isFav){
       var favToEnter = {};
       favToEnter.servings = favObj.servings;
       favToEnter.name = favObj.name;
@@ -272,7 +304,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       favToEnter.protein = favObj.protein * favObj.servings;
       favToEnter.sodium = favObj.sodium * favObj.servings;
       favToEnter.sugar = favObj.sugar * favObj.servings;
-      favToEnter.addedFromFavorites = true;
+      favToEnter.addedFromFavorites = isFav;
 
       $http.post('/meals/createEntry', favToEnter).then(function(response){
         console.log('got response from PUT /meals/createEntry');

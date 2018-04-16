@@ -22,9 +22,11 @@
       <div><md-button class="md-raised md-primary" ng-click="mc.addEntryModal($event)">Add an Item</md-button></div>
       <div class="dropdown">
 
-        <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="apiSearchText" ng-focus="mc.inFocus = true" ng-blur="mc.inFocus = false; apiSearchText=''; mc.instantData = {}">
+        <!-- <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="apiSearchText" ng-focus="mc.inFocus = true" ng-blur="mc.inFocus = false; apiSearchText=''; mc.instantData = {}">
+        <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0)) && mc.inFocus"> -->
+        <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="apiSearchText" >
+        <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0))">
 
-        <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0)) && mc.inFocus">
           <div ng-cloak>
             <md-content>
               <md-tabs md-dynamic-height md-border-bottom>
@@ -40,7 +42,7 @@
                       </div>
                     </div>
                     <h6>BRANDED FOODS</h6>
-                    <div ng-repeat="food in mc.instantData.branded | limitTo: 5" ng-mousedown="mc.selectBranded(food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
+                    <div ng-repeat="food in mc.instantData.branded | limitTo: 5" ng-mousedown="mc.selectBranded($event, food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
                       <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
                       <img src="{{food.photo.thumb}}" alt="">
                       <div flex layout="column">
@@ -67,7 +69,7 @@
                 <md-tab label="Common">
                   <md-content class="md-padding">
                     <h3>COMMON FOODS</h3>
-                    <div ng-repeat="food in mc.instantData.common | limitTo: 10" ng-mousedown="mc.selectCommon(food)" class="dropdown-item common-item" layout="row" layout-align="start center">
+                    <div ng-repeat="food in mc.instantData.common | limitTo: 10" ng-mousedown="mc.selectCommon($event, food)" class="dropdown-item common-item" layout="row" layout-align="start center">
                       <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
                       <img src="{{food.photo.thumb}}" alt="">
                       <div class="">
@@ -80,7 +82,7 @@
                 <md-tab label="Branded">
                   <md-content class="md-padding">
                     <h3>BRANDED FOODS</h3>
-                    <div ng-repeat="food in mc.instantData.branded | limitTo: 10" ng-mousedown="mc.selectBranded(food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
+                    <div ng-repeat="food in mc.instantData.branded | limitTo: 10" ng-mousedown="mc.selectBranded($event, food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
                       <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
                       <img src="{{food.photo.thumb}}" alt="">
                       <div flex layout="column">

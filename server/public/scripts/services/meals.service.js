@@ -3,10 +3,6 @@ myApp.factory('MealsService', function(UserService){
 
   var ms = {};
 
-
-
-
-
   return ms;
 
 });

@@ -2,30 +2,38 @@
   <!-- <form ng-cloak> -->
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Add an Item</h2>
-        <span flex></span>
+        <h1>{{apiFoodObject.name}}</h1>
       </div>
     </md-toolbar>
 
-    <md-dialog-content class="newEntryDialog">
+    <md-dialog-content class="favsDialogContent">
 
-        <div>Name: <input type="text" ng-model="mealName"></div>
-        <div>Serving size: <input type="text" ng-model="mealServingSize"></div>
-        <div>Servings: <input type="number" ng-model="mealServings"></div>
-        <div>Calories (per serving): <input type="number" ng-model="mealToEnter.calories"></div>
-        <div>Fat(g): <input type="number" ng-model="mealToEnter.fat"></div>
+      <div>Serving size: {{apiFoodObject.servingSize}}</div>
+      <div>
+        Servings: <input type="number" name="numberServings" ng-model="apiFoodObject.servings">
+      </div>
 
-        <div>Carbohydrates(g): <input type="number" ng-model="mealToEnter.carbohydrates"></div>
-        <div>Fiber(g): <input type="number" ng-model="mealToEnter.fiber"></div>
-        <div>Sugar(g): <input type="number" ng-model="mealToEnter.sugar"></div>
-        <div>Protein(g): <input type="number" ng-model="mealToEnter.protein"></div>
-        <div>Sodium(mg): <input type="number" ng-model="mealToEnter.sodium"></div>
+
+      <div>Calories (per serving): {{apiFoodObject.calories}}</div>
+      <div>Fat(g): {{apiFoodObject.fat}}</div>
+
+      <div>Carbohydrates(g): {{apiFoodObject.carbohydrates}}</div>
+      <div>Fiber(g): {{apiFoodObject.fiber}}</div>
+      <div>Sugar(g): {{apiFoodObject.sugar}}</div>
+      <div>Protein(g): {{apiFoodObject.protein}}</div>
+      <div>Sodium(mg): {{apiFoodObject.sodium}}</div>
 
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
-      <md-button class="md-raised md-primary" type="button" name="button" ng-click="cancel()">CANCEL</md-button>
-      <md-button class="md-raised md-primary" type="button" name="button" ng-click="createEntry(mealName, mealServingSize, mealServings, mealToEnter)">SAVE</md-button>
+
+
+
+
+      <md-button class="md-raised md-primary" type="button" name="button" ng-click="cancel()">Cancel</md-button>
+
+      <md-button class="md-raised md-primary" type="button" name="button" ng-click="addEntry(apiFoodObject, false)">Add</md-button>
+
     </md-dialog-actions>
   </form>
 </md-dialog>
