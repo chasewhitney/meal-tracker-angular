@@ -1,3 +1,5 @@
+/* * {border: 1px dotted black} */
+
 body, html {
   margin: 0;
   padding: 0;
@@ -180,6 +182,7 @@ body, html {
 /* BEGIN API SEARCH DROPDOWN */
 .dropdown {
     position: relative;
+    min-width:400px;
 }
 
 .dropdown-content {
@@ -231,4 +234,13 @@ font-size: 18px;
   border-radius:3px;
   height:30px;
 }
+
 /* END API SEARCH DROPDOWN */
+
+.mealsHead h1{
+ margin:10px;
+}
+
+.mealsTodayCol {
+  padding:10px;
+}

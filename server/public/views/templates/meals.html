@@ -2,16 +2,7 @@
 
 <div class="mealsMain" layout="row" flex-offset="5" flex="90">
 
-  <div class="mealsCol" layout="column" flex="15" layout-align="start center">
-
-    <div class="">
-
-      <md-button class="md-raised md-primary" ng-click="mc.addEntryModal($event)">Add an Item</md-button><br>
-      <md-button class="md-raised md-primary" ng-click="">Search API for Item</md-button>
-    </div>
-
-
-
+  <div class="mealsCol" layout="column" flex="20" layout-align="start center">
 
     <div class="favorites">
       <h3>FAVORITES</h3>
@@ -24,9 +15,101 @@
 
   <!-- PAGE DIVIDE -->
 
-  <div class="mealsTodayCol" layout="column" flex="85">
-    <div class="mealsHead">
-      <h1>TODAY'S ENTRIES</h1>
+  <div class="mealsTodayCol" layout="column" flex="80">
+    <div class="mealsHead" layout="row" layout-align="start center">
+      <div><h1>TODAY'S ENTRIES</h1></div>
+      <div flex></div>
+      <div><md-button class="md-raised md-primary" ng-click="mc.addEntryModal($event)">Add an Item</md-button></div>
+      <div class="dropdown">
+
+        <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="apiSearchText" ng-focus="mc.inFocus = true" ng-blur="mc.inFocus = false; apiSearchText=''; mc.instantData = {}">
+
+        <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0)) && mc.inFocus">
+          <div ng-cloak>
+            <md-content>
+              <md-tabs md-dynamic-height md-border-bottom>
+
+                <md-tab label="All">
+                  <md-content class="md-padding">
+                    <h6>COMMON FOODS</h6>
+                    <div ng-repeat="food in mc.instantData.common | limitTo: 5" ng-mousedown="mc.selectCommon($event, food)" class="dropdown-item common-item" layout="row" layout-align="start center">
+                      <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
+                      <img src="{{food.photo.thumb}}" alt="">
+                      <div class="">
+                        {{food.food_name}}
+                      </div>
+                    </div>
+                    <h6>BRANDED FOODS</h6>
+                    <div ng-repeat="food in mc.instantData.branded | limitTo: 5" ng-mousedown="mc.selectBranded(food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
+                      <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
+                      <img src="{{food.photo.thumb}}" alt="">
+                      <div flex layout="column">
+                        <div class="">
+                          {{food.food_name}}
+                        </div>
+                        <div class="" style="font-style:italic">
+                          {{food.brand_name}}, {{food.serving_qty}}{{food.serving_unit}}
+                        </div>
+                      </div>
+                      <div class="" layout="column" layout="center end">
+                        <div class="">
+                          {{food.nf_calories | number:0}}
+                        </div>
+                        <div class="">
+                          cal
+                        </div>
+                      </div>
+
+                    </div>
+                  </md-content>
+                </md-tab>
+
+                <md-tab label="Common">
+                  <md-content class="md-padding">
+                    <h3>COMMON FOODS</h3>
+                    <div ng-repeat="food in mc.instantData.common | limitTo: 10" ng-mousedown="mc.selectCommon(food)" class="dropdown-item common-item" layout="row" layout-align="start center">
+                      <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
+                      <img src="{{food.photo.thumb}}" alt="">
+                      <div class="">
+                        {{food.food_name}}
+                      </div>
+                    </div>
+                  </md-content>
+                </md-tab>
+
+                <md-tab label="Branded">
+                  <md-content class="md-padding">
+                    <h3>BRANDED FOODS</h3>
+                    <div ng-repeat="food in mc.instantData.branded | limitTo: 10" ng-mousedown="mc.selectBranded(food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
+                      <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
+                      <img src="{{food.photo.thumb}}" alt="">
+                      <div flex layout="column">
+                        <div class="">
+                          {{food.food_name}}
+                        </div>
+                        <div class="" style="font-style:italic">
+                          {{food.brand_name}}, {{food.serving_qty}}{{food.serving_unit}}
+                        </div>
+                      </div>
+                      <div class="" layout="column" layout="center end">
+                        <div class="">
+                          {{food.nf_calories | number:0}}
+                        </div>
+                        <div class="">
+                          cal
+                        </div>
+                      </div>
+
+                    </div>
+                  </md-content>
+                </md-tab>
+
+              </md-tabs>
+            </md-content>
+          </div>
+        </div>
+      </div>
+
     </div>
     <div layout="row" layout-align="center center" class="totalList">
       <div id="dailyTotals">
@@ -142,25 +225,25 @@
       </div>
       <!-- <md-button class="md-raised md-primary" ng-click="mc.saveToFavorites(item)">Save to Favorites</md-button> -->
       <md-menu>
-     <md-button class="md-raised md-primary" ng-click="mc.openMenu($mdMenu, $event, item)">OPTIONS</md-button>
-     <md-menu-content width="4">
-       <md-menu-item  ng-if="!mc.menuItem.addedFromFavorites">
-         <md-button ng-click="mc.saveToFavorites(item)">
-           Add to Favorites
-         </md-button>
-       </md-menu-item>
-       <md-menu-item>
-         <md-button ng-click="mc.editEntry($event, item)">
-           Edit
-         </md-button>
-       </md-menu-item>
-       <md-menu-item>
-         <md-button ng-click="mc.deleteEntry(item)">
-           Delete
-         </md-button>
-       </md-menu-item>
-     </md-menu-content>
-   </md-menu>
+        <md-button class="md-raised md-primary" ng-click="mc.openMenu($mdMenu, $event, item)">OPTIONS</md-button>
+        <md-menu-content width="4">
+          <md-menu-item  ng-if="!mc.menuItem.addedFromFavorites">
+            <md-button ng-click="mc.saveToFavorites(item)">
+              Add to Favorites
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="mc.editEntry($event, item)">
+              Edit
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="mc.deleteEntry(item)">
+              Delete
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
     </div>
   </div>
 

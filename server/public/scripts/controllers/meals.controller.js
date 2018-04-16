@@ -4,42 +4,52 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
   vm.ms = MealsService;
-vm.disabled = "disabled";
-  vm.createMealEntry = function(name, servingSize, servings, meal){
-    mealToEnter = meal;
-    for (var key in mealToEnter) {
-      mealToEnter[key] *= servings;
+
+    
+  addCommonModal = function(ev) {
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: '/views/partials/addFromCommon.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: customFullscreen // Only for -xs, -sm breakpoints.
+    })
+  };
+
+  calcCaloricComposition = function(today){
+    console.log('calculation caloric compositions');
+    for (var i = 0; i < today.length; i++) {
+      today[i].fatPercent = ((9 * today[i].fat) / today[i].calories) * 100;
+      today[i].proteinPercent = ((4 * today[i].protein) / today[i].calories) * 100;
+      today[i].carbPercent = 100 - today[i].fatPercent - today[i].proteinPercent;
+      console.log('F,P,C:',today[i].fatPercent,today[i].proteinPercent,today[i].carbPercent);
     }
-    mealToEnter.name = name;
-    mealToEnter.servingSize = servingSize;
-    mealToEnter.servings = servings;
-    console.log('in createMealEntry sending mealToEnter:', mealToEnter);
-    $http.post('/meals/createEntry', mealToEnter).then(function(response){
-      console.log('got response from PUT /meals/createEntry');
-      getTodayProgress();
-    });
   };
 
-  vm.saveToFavorites = function(item){
-    console.log('in saveToFavorites with:', item);
-      var mealToFavorite = {};
-      mealToFavorite.calories = item.calories;
-      mealToFavorite.carbohydrates = item.carbohydrates;
-      mealToFavorite.fat = item.fat;
-      mealToFavorite.fiber = item.fiber;
-      mealToFavorite.name = item.name;
-      mealToFavorite.protein = item.protein;
-      mealToFavorite.sodium = item.sodium;
-      mealToFavorite.sugar = item.sugar;
-      mealToFavorite.servingSize = item.servingSize;
-    console.log('in saveToFavorites with:', mealToFavorite);
-    $http.post('/meals/addFavorite', mealToFavorite).then(function(response){
-      console.log('got response from PUT /meals/createEntry');
-      getFavorites();
-      ///// ADD CONFIRMATION DIALOG /////
-    });
+  calcDailyTotal = function(today){
+    console.log('calculating totals');
+    vm.todayTotal = angular.copy(today[0]);
+    for (var i = 1; i < today.length; i++) {
+      for (var key in today[i]) {
+        var b = today[i];
+        vm.todayTotal[key] += b[key];
+      }
+    }
   };
 
+  editFavoriteModal = function(ev) {
+    console.log('in editFavoriteModal editing:', vm.ms.favObject);
+
+    $mdDialog.show({
+      controller: DialogController,
+      templateUrl: '/views/partials/editFavorite.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true,
+      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+    })
+  };
 
   getFavorites = function(){
     $http.get('/meals/getFavorites').then(function(response){
@@ -57,7 +67,6 @@ vm.disabled = "disabled";
     });
   };
 
-
   // Gets meal history for today
   getTodayProgress = function(){
     $http.get('/meals/getTodayProgress').then(function(response){
@@ -68,40 +77,8 @@ vm.disabled = "disabled";
     });
   };
 
-  // Gets history for specific date ///UNUSED SO FAR///
-  vm.getHistoricalDaily = function(){
-
-  };
-
-
-  calcDailyTotal = function(today){
-    console.log('calculating totals');
-    vm.todayTotal = angular.copy(today[0]);
-    for (var i = 1; i < today.length; i++) {
-      for (var key in today[i]) {
-        var b = today[i];
-        vm.todayTotal[key] += b[key];
-      }
-    }
-  };
-
-  calcCaloricComposition = function(today){
-    console.log('calculation caloric compositions');
-    for (var i = 0; i < today.length; i++) {
-      today[i].fatPercent = ((9 * today[i].fat) / today[i].calories) * 100;
-      today[i].proteinPercent = ((4 * today[i].protein) / today[i].calories) * 100;
-      today[i].carbPercent = 100 - today[i].fatPercent - today[i].proteinPercent;
-      console.log('F,P,C:',today[i].fatPercent,today[i].proteinPercent,today[i].carbPercent);
-    }
-  };
-
-  getGoals();
-  getTodayProgress();
-  getFavorites();
-
   // $scope.status = '  ';
   var customFullscreen = false;
-
   vm.addEntryModal = function(ev) {
     $mdDialog.show({
       controller: DialogController,
@@ -127,6 +104,21 @@ vm.disabled = "disabled";
     })
   };
 
+  vm.createMealEntry = function(name, servingSize, servings, meal){
+    mealToEnter = meal;
+    for (var key in mealToEnter) {
+      mealToEnter[key] *= servings;
+    }
+    mealToEnter.name = name;
+    mealToEnter.servingSize = servingSize;
+    mealToEnter.servings = servings;
+    console.log('in createMealEntry sending mealToEnter:', mealToEnter);
+    $http.post('/meals/createEntry', mealToEnter).then(function(response){
+      console.log('got response from PUT /meals/createEntry');
+      getTodayProgress();
+    });
+  };
+
   vm.deleteEntry = function(entry){
     $http.delete('/meals/deleteEntry/' + entry._id).then(function(response){
       console.log('Entry deleted.');
@@ -137,28 +129,91 @@ vm.disabled = "disabled";
 
   vm.editEntry = function(ev, entry){
     vm.ms.entryToEdit = entry;
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: '/views/partials/editEntry.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true,
-        fullscreen: customFullscreen // Only for -xs, -sm breakpoints.
-      })
-  };
-
-  editFavoriteModal = function(ev) {
-    console.log('in editFavoriteModal editing:', vm.ms.favObject);
-
     $mdDialog.show({
       controller: DialogController,
-      templateUrl: '/views/partials/editFavorite.html',
+      templateUrl: '/views/partials/editEntry.html',
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true,
-      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+      fullscreen: customFullscreen // Only for -xs, -sm breakpoints.
     })
   };
+
+  // Gets history for specific date ///UNUSED SO FAR///
+  vm.getHistoricalDaily = function(){
+
+  };
+
+  // Run when user enters text into the API search dropdown
+  vm.instantSearch = function(toQuery){
+    console.log("in instantSearch with:", toQuery);
+    vm.instantData ={};
+    if (toQuery.length > 2) {
+      var config = {params: {searchQuery: toQuery,}};
+      $http.get('api/instant', config).then(function(response){
+        console.log('Response from api/instant GET');
+        vm.instantData = response.data;
+        console.log('response:', response);
+        console.log('vm.instantData:', vm.instantData);
+      });
+    }
+  };
+
+  vm.openMenu = function($mdMenu, ev, item) {
+    console.log('in openMenu(), item is:', item);
+    $mdMenu.open(ev);
+    vm.menuItem = item;
+    console.log('vm.menuItem is:', vm.menuItem);
+  };
+
+  vm.saveToFavorites = function(item){
+    console.log('in saveToFavorites with:', item);
+    var mealToFavorite = {};
+    mealToFavorite.calories = item.calories;
+    mealToFavorite.carbohydrates = item.carbohydrates;
+    mealToFavorite.fat = item.fat;
+    mealToFavorite.fiber = item.fiber;
+    mealToFavorite.name = item.name;
+    mealToFavorite.protein = item.protein;
+    mealToFavorite.sodium = item.sodium;
+    mealToFavorite.sugar = item.sugar;
+    mealToFavorite.servingSize = item.servingSize;
+    console.log('in saveToFavorites with:', mealToFavorite);
+    $http.post('/meals/addFavorite', mealToFavorite).then(function(response){
+      console.log('got response from PUT /meals/createEntry');
+      getFavorites();
+      ///// ADD CONFIRMATION DIALOG /////
+    });
+  };
+
+  // Run when a "branded" food item is selected from API search dropdown
+  vm.selectBranded = function(item){
+    console.log('selected branded:', item.nix_item_id);
+    var config = {params:{toQuery:item.nix_item_id}};
+    $http.get('/api/branded', config).then(function(response){
+      console.log('got response');
+      var data = response.data.foods[0];
+      console.log('data:', data);
+    });
+  }
+
+  // Run when a "common" food item is selected from API search dropdown
+  vm.selectCommon = function(ev, item){
+    console.log('selected common:', item.food_name);
+    var config = {params:{toQuery:item.food_name}};
+    $http.get('api/common', config).then(function(response){
+      console.log('got response');
+      var data = response.data.foods[0];
+      console.log('data:', data);
+      addCommonModal(ev);
+    });
+  };
+
+  //// TEST FUNCTION ////
+  vm.test = function(){
+    console.log('in test function with item:', vm.menuItem);
+  }
+
 
   function DialogController(MealsService, $scope, $mdDialog) {
     $scope.favObject = MealsService.favObject;
@@ -245,22 +300,9 @@ vm.disabled = "disabled";
     };
   }
 
-  // BEGIN SELECT MENU
-
-
-
-      vm.openMenu = function($mdMenu, ev, item) {
-        console.log('in openMenu(), item is:', item);
-        $mdMenu.open(ev);
-        vm.menuItem = item;
-        console.log('vm.menuItem is:', vm.menuItem);
-      };
-
-      vm.test = function(){
-        console.log('in test function with item:', vm.menuItem);
-      }
-
-
+  getGoals();
+  getTodayProgress();
+  getFavorites();
 
 
 });

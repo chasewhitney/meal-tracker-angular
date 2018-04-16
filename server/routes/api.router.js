@@ -29,10 +29,10 @@ router.get('/instant', function(req, res){
   });
 });
 
-router.post('/common', function(req, res){
+router.get('/common', function(req, res){
   console.log('req.body:', req.body);
 
-  var toQuery = req.body.toQuery;
+  var toQuery = req.query.toQuery;
   var options = {
     url: 'https://trackapi.nutritionix.com/v2/natural/nutrients',
     method: 'POST',
@@ -60,7 +60,7 @@ router.post('/common', function(req, res){
 router.get('/branded', function(req, res){
   console.log('req.query:', req.query);
 
-  var toQuery = req.query.toQuery;
+    var toQuery = req.query.toQuery;
   var options = {
     url: 'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + toQuery,
     headers: {
