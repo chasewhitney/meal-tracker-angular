@@ -156,14 +156,14 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   vm.saveToFavorites = function(item){
     console.log('in saveToFavorites with:', item);
     var mealToFavorite = {};
-    mealToFavorite.calories = item.calories;
-    mealToFavorite.carbohydrates = item.carbohydrates;
-    mealToFavorite.fat = item.fat;
-    mealToFavorite.fiber = item.fiber;
+    mealToFavorite.calories = item.calories / item.servings;
+    mealToFavorite.carbohydrates = item.carbohydrates / item.servings;
+    mealToFavorite.fat = item.fat / item.servings;
+    mealToFavorite.fiber = item.fiber / item.servings;
     mealToFavorite.name = item.name;
-    mealToFavorite.protein = item.protein;
-    mealToFavorite.sodium = item.sodium;
-    mealToFavorite.sugar = item.sugar;
+    mealToFavorite.protein = item.protein / item.servings;
+    mealToFavorite.sodium = item.sodium / item.servings;
+    mealToFavorite.sugar = item.sugar / item.servings;
     mealToFavorite.servingSize = item.servingSize;
     console.log('in saveToFavorites with:', mealToFavorite);
     $http.post('/meals/addFavorite', mealToFavorite).then(function(response){
@@ -193,6 +193,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       vm.ms.apiFoodObject.protein = parseInt(data.nf_protein);
       vm.ms.apiFoodObject.sodium = parseInt(data.nf_sodium);
 
+      vm.apiSearchText = '';
       $mdDialog.show({
         controller: DialogController,
         templateUrl: '/views/partials/addFromCommon.html',
@@ -227,6 +228,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       vm.ms.apiFoodObject.protein = parseInt(data.nf_protein);
       vm.ms.apiFoodObject.sodium = parseInt(data.nf_sodium);
 
+      vm.apiSearchText = '';
       $mdDialog.show({
         controller: DialogController,
         templateUrl: '/views/partials/addFromCommon.html',

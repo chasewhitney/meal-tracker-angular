@@ -24,8 +24,8 @@
 
         <!-- <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="apiSearchText" ng-focus="mc.inFocus = true" ng-blur="mc.inFocus = false; apiSearchText=''; mc.instantData = {}">
         <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0)) && mc.inFocus"> -->
-        <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="apiSearchText" >
-        <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0))">
+        <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(mc.apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="mc.apiSearchText" >
+        <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0)) && mc.apiSearchText != ''">
 
           <div ng-cloak>
             <md-content>
@@ -45,7 +45,7 @@
                     <div ng-repeat="food in mc.instantData.branded | limitTo: 5" ng-mousedown="mc.selectBranded($event, food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
                       <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
                       <img src="{{food.photo.thumb}}" alt="">
-                      <div flex layout="column">
+                      <div layout="column" layout-align="center start">
                         <div class="">
                           {{food.food_name}}
                         </div>
@@ -53,6 +53,7 @@
                           {{food.brand_name}}, {{food.serving_qty}}{{food.serving_unit}}
                         </div>
                       </div>
+                      <div flex>  </div>
                       <div class="" layout="column" layout="center end">
                         <div class="">
                           {{food.nf_calories | number:0}}
