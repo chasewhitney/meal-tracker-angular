@@ -6,6 +6,15 @@
 
     <div class="favorites">
       <h3>FAVORITES</h3>
+
+      <div layout="row" layout-sm="column" layout-align="space-around" ng-if="!mc.favorites">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+
+      <div layout="row" layout-sm="column" layout-align="center center" ng-if="mc.favorites.length == 0">
+        No favorites to show.
+      </div>
+
       <div ng-repeat="fav in mc.favorites" class="favMeal" ng-click="mc.clickFavoriteModal($event, fav)">
         {{fav.name}}
       </div>
@@ -16,7 +25,7 @@
   <!-- PAGE DIVIDE -->
 
   <div class="mealsTodayCol" layout="column" flex="80">
-    <div class="mealsHead" layout="row" layout-align="start center">
+    <div class="mealsHead" layout="row" layout-sm="column" layout-align="start center">
       <div><h1>TODAY'S ENTRIES</h1></div>
       <div flex></div>
       <div><md-button class="md-raised md-primary" ng-click="mc.addEntryModal($event)">Add an Item</md-button></div>
@@ -114,10 +123,13 @@
       </div>
 
     </div>
-    <div layout="row" layout-align="center center" class="totalList">
+    <div layout="column" layout-gt-sm="row" layout-align="center center" class="totalList">
       <div id="dailyTotals">
         TOTALS:
       </div>
+
+      <!-- <div layout="row" class=""> -->
+
 
       <div layout="column">
         <div class="dailyTotalsLabel">
@@ -127,6 +139,7 @@
           {{mc.todayTotal.calories | number: 0}}
         </div>
       </div>
+
       <div layout="column">
         <div class="dailyTotalsLabel">
           Fat
@@ -135,6 +148,7 @@
           {{mc.todayTotal.fat | number: 0}}g
         </div>
       </div>
+
       <div layout="column">
         <div class="dailyTotalsLabel">
           Carbs
@@ -143,6 +157,7 @@
           {{mc.todayTotal.carbohydrates | number: 0}}g
         </div>
       </div>
+
       <div layout="column">
         <div class="dailyTotalsLabel">
           Fiber
@@ -151,6 +166,7 @@
           {{mc.todayTotal.fiber | number: 0}}g
         </div>
       </div>
+
       <div layout="column">
         <div class="dailyTotalsLabel">
           Sugar
@@ -159,6 +175,7 @@
           {{mc.todayTotal.sugar | number: 0}}g
         </div>
       </div>
+
       <div layout="column">
         <div class="dailyTotalsLabel">
           Protein
@@ -167,6 +184,7 @@
           {{mc.todayTotal.protein | number: 0}}g
         </div>
       </div>
+
       <div layout="column">
         <div class="dailyTotalsLabel">
           Sodium
@@ -174,11 +192,19 @@
         <div class="dailyTotalsValue">
           {{mc.todayTotal.sodium | number: 0}}mg
         </div>
-      </div>
-
+      <!-- </div> -->
+  </div>
 
 
     </div>
+
+    <div layout="row" layout-sm="column" layout-align="center center" ng-if="!mc.today" style="margin-top:20px">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <div layout="row" layout-sm="column" layout-align="center center" ng-if="mc.today.length == 0" style="margin-top:20px">
+      No entries to show.
+    </div>
+
     <div ng-repeat="item in mc.today" layout="row" layout-align="start center" class="todayList">
       <div layout="row" layout-align="center center" class="itemBarGraph">
         <div class="itemBarFat" ng-style="{width: {{item.fatPercent}} + 'px'}">
