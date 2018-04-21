@@ -245,7 +245,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
 
   //// TEST FUNCTION ////
   vm.test = function(){
-    console.log('in test function with item:', vm.menuItem);
+    console.log('in test');
   }
 
   function DialogController(MealsService, $scope, $mdDialog) {

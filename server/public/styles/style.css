@@ -1,13 +1,16 @@
 /* * {border: 1px dotted black} */
-
 body, html {
-  margin: 0;
-  padding: 0;
-  font-family:  'Roboto', sans-serif;
-  font-size: 14px;
+  font-family:  'Open Sans', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
   /* background-image:url('board-bg.jpeg');
   background-size:cover;
   background-attachment: fixed; */
+  /* background-color: #F8F8F8; */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  /* font-family: 'Roboto', sans-serif; */
+  font-family:  'Open Sans', sans-serif;
 }
 
 .home > div {
@@ -46,7 +49,7 @@ body, html {
 
 .navbar {
   width: 100%;
-  border-bottom: 1px black solid;
+  border-bottom: 1px solid #E7E7E7;
 }
 
 .navbar h2 {
@@ -79,11 +82,11 @@ body, html {
 
 
 .mealsCol {
-  border-right: 1px solid black;
+  border-right: 1px solid #E7E7E7;
 }
 
 .mealsHead {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #E7E7E7;
   text-align: center;
   padding-bottom: 10px;
   margin-top:-10px;
@@ -98,7 +101,7 @@ body, html {
 }
 
 .totalList {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #E7E7E7;
 }
 
 .totalList > div {
@@ -124,34 +127,39 @@ body, html {
 .newEntryDialog {
   padding:20px;
 }
+
 .newEntryDialog div{
   margin:2px;
 }
 
 .itemBarGraph{
   width:100px;
-  border: 1px solid black;
+  border: 1px solid #E7E7E7;
 }
 
 .itemBarFat{
-  background-color:green;height:20px;
+  background-color: #B3217C;
+  height:20px;
 }
 
 .itemBarProtein{
-  background-color:blue;height:20px
+  background-color: #1AA6B7;
+  height:20px
 }
 
 .itemBarCarbs{
-  background-color:red;height:20px
+  background-color: #F0AB00;
+  height:20px
 }
 
 .favorites h3{
   text-align:center;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #E7E7E7;
+
 }
 
 .favMeal {
-  border: 1px solid black;
+  border: 1px solid #E7E7E7;
   margin:2px;
   padding:4px;
   border-radius: 5px;
@@ -201,17 +209,18 @@ body, html {
 
 .dropdown-content img{
     max-width: 35px;
+    max-height: 40px;
     margin: 5px;
 }
 
 .dropdown-content h6 {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #E7E7E7;
     margin:5px;
     padding:5px;
 }
 .dropdown-item {
   border-bottom:1px solid grey;
-    height:45px;
+  height:45px;
   padding:3px;
 }
 
@@ -232,7 +241,7 @@ body, html {
 
 #apiSearchBox{
   width:100%;
-  border: 1px solid black;
+  border: 1px solid #E7E7E7;
   border-radius:3px;
   height:30px;
 }

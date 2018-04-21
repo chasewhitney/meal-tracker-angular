@@ -33,14 +33,14 @@
 
         <!-- <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="apiSearchText" ng-focus="mc.inFocus = true" ng-blur="mc.inFocus = false; apiSearchText=''; mc.instantData = {}">
         <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0)) && mc.inFocus"> -->
-        <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(mc.apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="mc.apiSearchText" >
+        <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(mc.apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="mc.apiSearchText">
         <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0)) && mc.apiSearchText != ''">
 
           <div ng-cloak>
             <md-content>
               <md-tabs md-dynamic-height md-border-bottom>
 
-                <md-tab label="All">
+                <md-tab label="All" ng-click="mc.test()">
                   <md-content class="md-padding">
                     <h6>COMMON FOODS</h6>
                     <div ng-repeat="food in mc.instantData.common | limitTo: 5" ng-mousedown="mc.selectCommon($event, food)" class="dropdown-item common-item" layout="row" layout-align="start center">
@@ -227,11 +227,11 @@
         <div class="">
           {{item.calories | number: 0}} calories
         </div>
+      </div>
+      <div flex="10" layout="column">
         <div class="">
           {{item.fat | number: 0}}g fat
         </div>
-      </div>
-      <div flex="10" layout="column">
         <div class="">
           {{item.carbohydrates | number: 0}}g carbs
         </div>
