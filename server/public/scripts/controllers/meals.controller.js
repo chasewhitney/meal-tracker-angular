@@ -5,7 +5,11 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   vm.userObject = UserService.userObject;
   vm.ms = MealsService;
 
-  calcCaloricComposition = function(today){
+  getGoals();
+  getTodayProgress();
+  getFavorites();
+
+   function calcCaloricComposition(today){
     console.log('calculation caloric compositions');
     for (var i = 0; i < today.length; i++) {
       today[i].fatPercent = ((9 * today[i].fat) / today[i].calories) * 100;
@@ -15,7 +19,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     }
   };
 
-  calcDailyTotal = function(today){
+   function calcDailyTotal(today){
     console.log('calculating totals');
     vm.todayTotal = angular.copy(today[0]);
     for (var i = 1; i < today.length; i++) {
@@ -26,7 +30,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     }
   };
 
-  editFavoriteModal = function(ev) {
+  function editFavoriteModal(ev) {
     console.log('in editFavoriteModal editing:', vm.ms.favObject);
     $mdDialog.show({
       controller: DialogController,
@@ -38,7 +42,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     })
   };
 
-  getFavorites = function(){
+  function getFavorites(){
     $http.get('/meals/getFavorites').then(function(response){
       console.log('getFavorites response data is:', response.data);
       vm.favorites = response.data;
@@ -48,14 +52,14 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   };
 
-  getGoals = function(){
+  function getGoals(){
     $http.get('/goals').then(function(response){
       vm.goals = response.data[0];
     });
   };
 
   // Gets meal history for today
-  getTodayProgress = function(){
+  function getTodayProgress(){
     $http.get('/meals/getTodayProgress').then(function(response){
       vm.today = response.data;
       console.log('vm.today is:', vm.today);
@@ -64,8 +68,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   };
 
-  // $scope.status = '  ';
-  var customFullscreen = false;
   vm.addEntryModal = function(ev) {
     $mdDialog.show({
       controller: DialogController,
@@ -73,7 +75,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true,
-      fullscreen: customFullscreen // Only for -xs, -sm breakpoints.
+      fullscreen: false // Only for -xs, -sm breakpoints.
     })
   };
 
@@ -122,7 +124,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose:true,
-      fullscreen: customFullscreen // Only for -xs, -sm breakpoints.
+      fullscreen: false // Only for -xs, -sm breakpoints.
     })
   };
 
@@ -202,9 +204,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
         clickOutsideToClose:true,
         fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
       })
-
-
-
     });
   }
 
@@ -237,9 +236,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
         clickOutsideToClose:true,
         fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
       })
-
-
-
     });
   };
 
@@ -274,7 +270,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
         getFavorites();
         $mdDialog.hide();
       });
-
     };
 
     $scope.createEntry = function(name, servingSize, servings, meal) {
@@ -333,10 +328,4 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       });
     };
   }
-
-  getGoals();
-  getTodayProgress();
-  getFavorites();
-
-
 });

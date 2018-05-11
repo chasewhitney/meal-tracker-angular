@@ -44,6 +44,7 @@ router.get('/getFavorites', function(req, res, next) {
       next(err);
     } else {
       console.log('get MealFavorite.find -- success');
+      console.log('data is:', data);
       res.send(data);
     }
   });
