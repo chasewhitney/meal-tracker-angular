@@ -9,7 +9,7 @@ if (process.env.MONGODB_URI != undefined) {
     mongoURI = process.env.MONGODB_URI;
 } else {
     // use the local database server
-    mongoURI = 'mongodb://localhost:27017/food-tracker';
+    mongoURI = require('../config.js').mongoURI;
 }
 
 mongoose.connect(mongoURI);
