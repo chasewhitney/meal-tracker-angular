@@ -17,7 +17,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       today[i].carbPercent = 100 - today[i].fatPercent - today[i].proteinPercent;
       console.log('F,P,C:',today[i].fatPercent,today[i].proteinPercent,today[i].carbPercent);
     }
-  };
+  }
 
    function calcDailyTotal(today){
     console.log('calculating totals');
@@ -28,7 +28,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
         vm.todayTotal[key] += b[key];
       }
     }
-  };
+  }
 
   function editFavoriteModal(ev) {
     console.log('in editFavoriteModal editing:', vm.ms.favObject);
@@ -39,8 +39,8 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       targetEvent: ev,
       clickOutsideToClose:true,
       fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-    })
-  };
+    });
+  }
 
   function getFavorites(){
     $http.get('/meals/getFavorites').then(function(response){
@@ -50,13 +50,13 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
         vm.favorites[i].servings = 1;
       }
     });
-  };
+  }
 
   function getGoals(){
     $http.get('/goals').then(function(response){
       vm.goals = response.data[0];
     });
-  };
+  }
 
   // Gets meal history for today
   function getTodayProgress(){
@@ -66,7 +66,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       calcDailyTotal(vm.today);
       calcCaloricComposition(vm.today);
     });
-  };
+  }
 
   vm.addEntryModal = function(ev) {
     $mdDialog.show({
@@ -76,7 +76,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       targetEvent: ev,
       clickOutsideToClose:true,
       fullscreen: false // Only for -xs, -sm breakpoints.
-    })
+    });
   };
 
   vm.clickFavoriteModal = function(ev, favObject) {
@@ -90,7 +90,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       targetEvent: ev,
       clickOutsideToClose:true,
       fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-    })
+    });
   };
 
   vm.createMealEntry = function(name, servingSize, servings, meal){
@@ -114,7 +114,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       getTodayProgress();
       $mdDialog.hide();
     });
-  }
+  };
 
   vm.editEntry = function(ev, entry){
     vm.ms.entryToEdit = entry;
@@ -125,11 +125,16 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       targetEvent: ev,
       clickOutsideToClose:true,
       fullscreen: false // Only for -xs, -sm breakpoints.
-    })
+    });
   };
 
   // Gets history for specific date ///UNUSED SO FAR///
   vm.getHistoricalDaily = function(){
+    $http.get('/meals/searchHistory').then(function(response){
+      console.log('searchHistory response data is:', response.data);
+      var data = response.data; 
+      var histObj = {};
+    });
 
   };
 
@@ -203,9 +208,9 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
         targetEvent: ev,
         clickOutsideToClose:true,
         fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-      })
+      });
     });
-  }
+  };
 
   // Run when a "common" food item is selected from API search dropdown
   vm.selectCommon = function(ev, item){
@@ -235,14 +240,14 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
         targetEvent: ev,
         clickOutsideToClose:true,
         fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-      })
+      });
     });
   };
 
   //// TEST FUNCTION ////
   vm.test = function(){
     console.log('in test');
-  }
+  };
 
   function DialogController(MealsService, $scope, $mdDialog) {
     $scope.favObject = MealsService.favObject;
@@ -328,4 +333,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       });
     };
   }
+
+  vm.getHistoricalDaily();
 });

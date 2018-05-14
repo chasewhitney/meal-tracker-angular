@@ -50,6 +50,20 @@ router.get('/getFavorites', function(req, res, next) {
   });
 });
 
+router.get('/searchHistory', function(req, res, next) {
+  var username = req.user.username;
+  MealEntry.find({username: username}, function(err, data) {
+    if(err) {
+      console.log('get searchHistory.find -- failure');
+      next(err);
+    } else {
+      console.log('get searchHistory.find -- success');
+      console.log('data is:', data);
+      res.send(data);
+    }
+  });
+});
+
 router.get('/getTodayProgress', function(req, res) {
   var username = req.user.username;
   var today = new Date();
