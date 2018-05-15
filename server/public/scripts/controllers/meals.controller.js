@@ -132,8 +132,12 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   vm.getHistoricalDaily = function(){
     $http.get('/meals/searchHistory').then(function(response){
       console.log('searchHistory response data is:', response.data);
-      var data = response.data; 
+      var data = response.data;
       var histObj = {};
+
+      // Turn history into an object where key is the date and the value is an array of entries pertaining to that date
+      data.forEach((value, index) =>( histObj[value.date] ? (histObj[value.date].push(value)) : (histObj[value.date] = [value])));
+      console.log('histObj is:', histObj);
     });
 
   };
