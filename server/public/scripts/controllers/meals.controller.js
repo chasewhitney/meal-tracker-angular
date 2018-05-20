@@ -136,7 +136,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       var histObj = {};
 
       // Turn history into an object where key is the date and the value is an array of entries pertaining to that date
-      data.forEach((value, index) =>( histObj[value.date] ? (histObj[value.date].push(value)) : (histObj[value.date] = [value])));
+      data.forEach((v, i) =>( histObj[v.date] ? (histObj[v.date].push(v)) : (histObj[v.date] = [v])));
       console.log('histObj is:', histObj);
     });
 
