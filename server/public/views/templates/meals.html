@@ -63,7 +63,7 @@
                         </div>
                       </div>
                       <div flex>  </div>
-                      <div class="" layout="column" layout="center end">
+                      <div class="" layout="column" layout-align="center end">
                         <div class="">
                           {{food.nf_calories | number:0}}
                         </div>
@@ -103,7 +103,7 @@
                           {{food.brand_name}}, {{food.serving_qty}}{{food.serving_unit}}
                         </div>
                       </div>
-                      <div class="" layout="column" layout="center end">
+                      <div class="" layout="column" layout-align="center end">
                         <div class="">
                           {{food.nf_calories | number:0}}
                         </div>
@@ -154,7 +154,7 @@
           Carbs
         </div>
         <div class="dailyTotalsValue">
-          {{mc.todayTotal.carbohydrates | number: 0}}g
+          {{mc.todayTotal.carbohydrates | number: 0}}g<span style="color:green"> ({{mc.todayTotal.carbohydrates - mc.todayTotal.fiber| number: 0}}g)</span>
         </div>
       </div>
 
