@@ -34,22 +34,21 @@ myApp.controller('HistoryController', function(UserService, MealsService, $http,
       // Turn history into an object where key is the date and the value is an array of entries pertaining to that date
       // data.forEach((v, i) =>( vm.mealHistory[v.date] ? (vm.mealHistory[v.date].push(v)) : (vm.mealHistory[v.date] = [v])));
       data.forEach((v, i) => doThing(v));
-      vm.fullHistory.forEach((v,i) => calcTotals(v));
+      var totalsToCalc = ["fat", "carbohydrates", "fiber", "sodium", "calories", "protein", "sugar"];
+      vm.fullHistory.forEach((v,i) => calcTotals(v, totalsToCalc));
       console.log('vm.fullHistory is:', vm.fullHistory);
     });
   };
 
   function doThing(v){
-    var index = findWithProp(vm.fullHistory, "date", v.date) //arr, prop, val
+    var index = findWithProp(vm.fullHistory, "date", v.date); //arr, prop, val
 
     if(index == -1){
       vm.fullHistory.push({date: v.date, entries:[v]});
     } else {
       vm.fullHistory[index].entries.push(v);
     }
-
-    console.log(i);
-    console.log(v);
+    // console.log(v);
 
   }
 
@@ -59,7 +58,24 @@ myApp.controller('HistoryController', function(UserService, MealsService, $http,
 
 
 //// from meal controller, unchanged
-function calcTotals(day){
+function calcTotals(day, nute){
+  console.log('in calcTotals with:', day);
+  console.log('nutes:', nute);
+  console.log('day.entries:', day.entries);
+  day.totals = {};
+  var dt = day.totals;
+  day.entries.sum = function (prop) {
+    var total = 0;
+    for ( let i = 0; i < this.length; i++ ) {
+        total += this[i][prop];
+    }
+    return total;
+  };
+  nute.forEach((v,i)=>{
+    dt[v] = day.entries.sum(v);
+  });
+  dt.netCarbs = dt.carbohydrates - dt.fiber;
+
  // day.totals = {};
  // vm.todayTotal = angular.copy(today[0]);
  // for (var i = 1; i < today.length; i++) {
