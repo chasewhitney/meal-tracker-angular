@@ -5,5 +5,5 @@
 </div>
 
 <div ng-repeat="day in hc.fullHistory"class="">
-  {{day.date | date}} - <span ng-class="{true: 'carbsGood', false: 'carbsBad'}[day.totals.netCarbs <= 30]">{{day.totals.netCarbs}}</span>
+  {{day.date | date}} - <span ng-class="{true: 'carbsGood', false: 'carbsBad'}[day.totals.netCarbs <= 30]">{{day.totals.netCarbs}}g</span>
 </div>
