@@ -29,6 +29,7 @@
       <div><h1>TODAY'S ENTRIES</h1></div>
       <div flex></div>
       <div><md-button class="md-raised md-primary" ng-click="mc.addEntryModal($event)">Add an Item</md-button></div>
+      <span style="margin-left:5px; margin-right:15px">OR</span>
       <div class="dropdown">
 
         <!-- <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="apiSearchText" ng-focus="mc.inFocus = true" ng-blur="mc.inFocus = false; apiSearchText=''; mc.instantData = {}">
@@ -124,76 +125,80 @@
 
     </div>
     <div layout="row" layout-align="center center" class="totalList">
-      <div id="dailyTotals" style="margin-left:20px">
+      <div id="dailyTotals" flex="15">
         TOTALS:
       </div>
 
       <!-- <div layout="row" class=""> -->
 
+      <div layout="row" flex style="margin-right: 15px">
+        <!-- <div class="row"> -->
+          <div layout="column" flex class="dailyTotals">
+            <div >
+              Calories
+            </div>
+            <div>
+              {{mc.todayTotal.calories | number: 0}}
+            </div>
+          </div>
 
-      <div layout="column" class="dailyTotals" style="margin-left:20px">
-        <div >
-          Calories
-        </div>
-        <div>
-          {{mc.todayTotal.calories | number: 0}}
-        </div>
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Fat
+            </div>
+            <div>
+              {{mc.todayTotal.fat | number: 0}}g
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Carbs
+            </div>
+            <div>
+              {{mc.todayTotal.carbohydrates | number: 0}}g
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Fiber
+            </div>
+            <div>
+              {{mc.todayTotal.fiber | number: 0}}g
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Sugar
+            </div>
+            <div>
+              {{mc.todayTotal.sugar | number: 0}}g
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Protein
+            </div>
+            <div>
+              {{mc.todayTotal.protein | number: 0}}g
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Sodium
+            </div>
+            <div>
+              {{mc.todayTotal.sodium | number: 0}}mg
+            </div>
+          </div>
+        <!-- </div> -->
       </div>
 
-      <div layout="column"  class="dailyTotals" style="margin-left:20px">
-        <div>
-          Fat
-        </div>
-        <div>
-          {{mc.todayTotal.fat | number: 0}}g
-        </div>
-      </div>
-
-      <div layout="column" class="dailyTotals" style="margin-left:20px">
-        <div>
-          Carbs
-        </div>
-        <div>
-          {{mc.todayTotal.carbohydrates | number: 0}}g
-        </div>
-      </div>
-
-      <div layout="column" class="dailyTotals" style="margin-left:20px">
-        <div>
-          Fiber
-        </div>
-        <div>
-          {{mc.todayTotal.fiber | number: 0}}g
-        </div>
-      </div>
-
-      <div layout="column" class="dailyTotals" style="margin-left:20px">
-        <div>
-          Sugar
-        </div>
-        <div>
-          {{mc.todayTotal.sugar | number: 0}}g
-        </div>
-      </div>
-
-      <div layout="column" class="dailyTotals" style="margin-left:20px">
-        <div>
-          Protein
-        </div>
-        <div>
-          {{mc.todayTotal.protein | number: 0}}g
-        </div>
-      </div>
-
-      <div layout="column" class="dailyTotals" style="margin-left:20px; margin-right:60px">
-        <div>
-          Sodium
-        </div>
-        <div>
-          {{mc.todayTotal.sodium | number: 0}}mg
-        </div>
-      </div>
-      <div layout="column" flex style="border-left:1px solid black">
+      <div layout="column" flex="15" style="border-left:1px solid black">
         <div id="netCarbsLabel">
           Net Carbs
         </div>
@@ -205,7 +210,7 @@
 
     </div>
 
-    <div layout="row" layout-sm="column" layout-align="center center" ng-if="!mc.today" style="margin-top:20px">
+    <div layout="row" layout-align="center center" ng-if="!mc.today" style="margin-top:20px">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
     <div layout="row" layout-sm="column" layout-align="center center" ng-if="mc.today.length == 0" style="margin-top:20px">

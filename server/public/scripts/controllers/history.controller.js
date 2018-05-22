@@ -35,7 +35,6 @@ myApp.controller('HistoryController', function(UserService, MealsService, $http,
       data.forEach((v, i) =>( vm.mealHistory[v.date] ? (vm.mealHistory[v.date].push(v)) : (vm.mealHistory[v.date] = [v])));
       console.log('vm.mealHistory is:', vm.mealHistory);
     });
-
   };
 
 
