@@ -7,17 +7,6 @@ myApp.controller('HistoryController', function(UserService, MealsService, $http,
 
   getGoals();
 
-   function calcDailyTotal(today){
-    console.log('calculating totals');
-    vm.todayTotal = angular.copy(today[0]);
-    for (var i = 1; i < today.length; i++) {
-      for (var key in today[i]) {
-        var b = today[i];
-        vm.todayTotal[key] += b[key];
-      }
-    }
-  }
-
   function getGoals(){
     $http.get('/goals').then(function(response){
       vm.goals = response.data[0];
@@ -64,6 +53,7 @@ function calcTotals(day, nute){
   console.log('day.entries:', day.entries);
   day.totals = {};
   var dt = day.totals;
+
   day.entries.sum = function (prop) {
     var total = 0;
     for ( let i = 0; i < this.length; i++ ) {
@@ -71,19 +61,12 @@ function calcTotals(day, nute){
     }
     return total;
   };
+
   nute.forEach((v,i)=>{
     dt[v] = day.entries.sum(v);
   });
-  dt.netCarbs = dt.carbohydrates - dt.fiber;
 
- // day.totals = {};
- // vm.todayTotal = angular.copy(today[0]);
- // for (var i = 1; i < today.length; i++) {
- //   for (var key in today[i]) {
- //     var b = today[i];
- //     vm.todayTotal[key] += b[key];
- //   }
- // }
+  dt.netCarbs = dt.carbohydrates - dt.fiber;
 }
 
 //// from riotapi, unchanged
