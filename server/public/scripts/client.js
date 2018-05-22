@@ -39,6 +39,14 @@ myApp.config(function($routeProvider, $locationProvider) {
           return UserService.getuser();
         }
       }
+    }).when('/history', {
+      templateUrl: '/views/templates/history.html',
+      controller: 'HistoryController as hc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
     })
     .when('/goals', {
       templateUrl: '/views/templates/goals.html',

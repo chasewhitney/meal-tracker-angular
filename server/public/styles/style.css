@@ -114,14 +114,29 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 32px;
 }
 
-.dailyTotalsLabel {
+.dailyTotals {
   font-size:24px;
+  text-align:center;
+  margin-left:20px;
+}
+
+#netCarbsLabel{
+  font-size:24px;
+  text-align:center;
+  margin-left: 5px;
+}
+
+#netCarbs {
+  margin-left 5px;
+  font-size:32px;
   text-align:center;
 }
 
-.dailyTotalsValue {
-  font-size:24px;
-  text-align:center;
+.carbsGood {
+  color:green;
+}
+.carbsBad {
+  color:red;
 }
 
 .newEntryDialog {

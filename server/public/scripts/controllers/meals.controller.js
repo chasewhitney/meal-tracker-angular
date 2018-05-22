@@ -128,7 +128,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   };
 
-  // Gets history for specific date ///UNUSED SO FAR///
+  // Gets history for specific date ///UNUSED SO FAR/// NO ROUTE SERVER-SIDE
   vm.getHistoricalDaily = function(){
     $http.get('/meals/searchHistory').then(function(response){
       console.log('searchHistory response data is:', response.data);
@@ -338,5 +338,4 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     };
   }
 
-  vm.getHistoricalDaily();
 });

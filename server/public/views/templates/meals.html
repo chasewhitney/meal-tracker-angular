@@ -25,7 +25,7 @@
   <!-- PAGE DIVIDE -->
 
   <div class="mealsTodayCol" layout="column" flex="80">
-    <div class="mealsHead" layout="row" layout-sm="column" layout-align="start center">
+    <div class="mealsHead" layout="row" layout-align="start center">
       <div><h1>TODAY'S ENTRIES</h1></div>
       <div flex></div>
       <div><md-button class="md-raised md-primary" ng-click="mc.addEntryModal($event)">Add an Item</md-button></div>
@@ -123,77 +123,84 @@
       </div>
 
     </div>
-    <div layout="column" layout-gt-sm="row" layout-align="center center" class="totalList">
-      <div id="dailyTotals">
+    <div layout="row" layout-align="center center" class="totalList">
+      <div id="dailyTotals" style="margin-left:20px">
         TOTALS:
       </div>
 
       <!-- <div layout="row" class=""> -->
 
 
-      <div layout="column">
-        <div class="dailyTotalsLabel">
+      <div layout="column" class="dailyTotals" style="margin-left:20px">
+        <div >
           Calories
         </div>
-        <div class="dailyTotalsValue">
+        <div>
           {{mc.todayTotal.calories | number: 0}}
         </div>
       </div>
 
-      <div layout="column">
-        <div class="dailyTotalsLabel">
+      <div layout="column"  class="dailyTotals" style="margin-left:20px">
+        <div>
           Fat
         </div>
-        <div class="dailyTotalsValue">
+        <div>
           {{mc.todayTotal.fat | number: 0}}g
         </div>
       </div>
 
-      <div layout="column">
-        <div class="dailyTotalsLabel">
+      <div layout="column" class="dailyTotals" style="margin-left:20px">
+        <div>
           Carbs
         </div>
-        <div class="dailyTotalsValue">
-          {{mc.todayTotal.carbohydrates | number: 0}}g<span style="color:green"> ({{mc.todayTotal.carbohydrates - mc.todayTotal.fiber| number: 0}}g)</span>
+        <div>
+          {{mc.todayTotal.carbohydrates | number: 0}}g
         </div>
       </div>
 
-      <div layout="column">
-        <div class="dailyTotalsLabel">
+      <div layout="column" class="dailyTotals" style="margin-left:20px">
+        <div>
           Fiber
         </div>
-        <div class="dailyTotalsValue">
+        <div>
           {{mc.todayTotal.fiber | number: 0}}g
         </div>
       </div>
 
-      <div layout="column">
-        <div class="dailyTotalsLabel">
+      <div layout="column" class="dailyTotals" style="margin-left:20px">
+        <div>
           Sugar
         </div>
-        <div class="dailyTotalsValue">
+        <div>
           {{mc.todayTotal.sugar | number: 0}}g
         </div>
       </div>
 
-      <div layout="column">
-        <div class="dailyTotalsLabel">
+      <div layout="column" class="dailyTotals" style="margin-left:20px">
+        <div>
           Protein
         </div>
-        <div class="dailyTotalsValue">
+        <div>
           {{mc.todayTotal.protein | number: 0}}g
         </div>
       </div>
 
-      <div layout="column">
-        <div class="dailyTotalsLabel">
+      <div layout="column" class="dailyTotals" style="margin-left:20px; margin-right:60px">
+        <div>
           Sodium
         </div>
-        <div class="dailyTotalsValue">
+        <div>
           {{mc.todayTotal.sodium | number: 0}}mg
         </div>
-      <!-- </div> -->
-  </div>
+      </div>
+      <div layout="column" flex style="border-left:1px solid black">
+        <div id="netCarbsLabel">
+          Net Carbs
+        </div>
+        <div id="netCarbs" ng-class="{true: 'carbsGood', false: 'carbsBad'}[mc.todayTotal.carbohydrates - mc.todayTotal.fiber <= 30]">
+          {{mc.todayTotal.carbohydrates - mc.todayTotal.fiber| number: 0}}g
+        </div>
+      </div>
 
 
     </div>
