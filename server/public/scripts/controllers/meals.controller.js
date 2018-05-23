@@ -293,12 +293,11 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       var favMeal = meal;
       favMeal.name = name;
       favMeal.servingSize = servingSize;
-      favMeal.addedFromFavorites = true;
       vm.saveToFavorites(favMeal);
       $mdDialog.hide();
     };
 
-    $scope.addEntry = function(favObj, isFav){
+    $scope.addEntry = function(favObj){
       var favToEnter = {};
       favToEnter.servings = favObj.servings;
       favToEnter.name = favObj.name;
@@ -310,7 +309,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       favToEnter.protein = favObj.protein * favObj.servings;
       favToEnter.sodium = favObj.sodium * favObj.servings;
       favToEnter.sugar = favObj.sugar * favObj.servings;
-      favToEnter.addedFromFavorites = isFav;
 
       $http.post('/meals/createEntry', favToEnter).then(function(response){
         console.log('got response from PUT /meals/createEntry');

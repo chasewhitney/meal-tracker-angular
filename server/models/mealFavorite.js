@@ -6,8 +6,6 @@ var Schema = mongoose.Schema;
 var MealFavoriteSchema = new Schema({
     username: {type: String, required: true},
     name: {type: String, required: true},
-    // photo: {type: String},
-    // servings: {type: Number},
     servingSize: {type: String},
     calories: {type: Number},
     fiber: {type: Number},
