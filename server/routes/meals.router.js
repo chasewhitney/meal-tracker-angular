@@ -68,6 +68,7 @@ router.get('/getTodayProgress', function(req, res) {
   var username = req.user.username;
   var today = new Date();
   searchDate = new Date(today.getFullYear(), (today.getMonth()), today.getDate());
+  console.log('searchDate is:', searchDate);
   MealEntry.find({$and:[{date: searchDate}, {username: username}] }, function(err, data) {
     if(err) {
       console.log('find error:', err);

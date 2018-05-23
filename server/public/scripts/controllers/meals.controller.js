@@ -10,17 +10,17 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   getFavorites();
 
    function calcCaloricComposition(today){
-    console.log('calculation caloric compositions');
+    // console.log('calculation caloric compositions');
     for (var i = 0; i < today.length; i++) {
       today[i].fatPercent = ((9 * today[i].fat) / today[i].calories) * 100;
       today[i].proteinPercent = ((4 * today[i].protein) / today[i].calories) * 100;
       today[i].carbPercent = 100 - today[i].fatPercent - today[i].proteinPercent;
-      console.log('F,P,C:',today[i].fatPercent,today[i].proteinPercent,today[i].carbPercent);
+      // console.log('F,P,C:',today[i].fatPercent,today[i].proteinPercent,today[i].carbPercent);
     }
   }
 
    function calcDailyTotal(today){
-    console.log('calculating totals');
+    // console.log('calculating totals');
     vm.todayTotal = angular.copy(today[0]);
     for (var i = 1; i < today.length; i++) {
       for (var key in today[i]) {
@@ -101,9 +101,10 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     mealToEnter.name = name;
     mealToEnter.servingSize = servingSize;
     mealToEnter.servings = servings;
+
     console.log('in createMealEntry sending mealToEnter:', mealToEnter);
     $http.post('/meals/createEntry', mealToEnter).then(function(response){
-      console.log('got response from PUT /meals/createEntry');
+      console.log('got response from POST /meals/createEntry');
       getTodayProgress();
     });
   };
@@ -178,7 +179,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     mealToFavorite.servingSize = item.servingSize;
     console.log('in saveToFavorites with:', mealToFavorite);
     $http.post('/meals/addFavorite', mealToFavorite).then(function(response){
-      console.log('got response from PUT /meals/createEntry');
+      console.log('got response from POST /meals/addFavorite');
       getFavorites();
       ///// ADD CONFIRMATION DIALOG /////
     });
@@ -311,7 +312,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       favToEnter.sugar = favObj.sugar * favObj.servings;
 
       $http.post('/meals/createEntry', favToEnter).then(function(response){
-        console.log('got response from PUT /meals/createEntry');
+        console.log('got response from POST /meals/createEntry');
         $mdDialog.hide();
         getTodayProgress();
       });
