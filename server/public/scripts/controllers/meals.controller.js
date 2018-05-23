@@ -9,6 +9,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   getTodayProgress();
   getFavorites();
 
+
    function calcCaloricComposition(today){
     // console.log('calculation caloric compositions');
     for (var i = 0; i < today.length; i++) {
@@ -165,20 +166,32 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     console.log('vm.menuItem is:', vm.menuItem);
   };
 
+  function formatEntry(obj, math){
+    var props = ["calories", "carbohydrates", "fat", "fiber", "protein", "sodium", "sugar"];
+    try {
+      if(math != "per serving" && math != "total") throw "Illegal math argument sent to formatEntry";
+      if(!obj._id || !obj.$$hashKey) throw "Invalid object sent to formatEntry"
+      delete obj._id;
+      delete obj.$$hashKey;
+      if(math == "per serving"){
+        for (var i = 0; i < props.length; i++) {
+          obj[props[i]] /= obj.servings;
+        }
+      } else {
+        for (var i = 0; i < props.length; i++) {
+          obj[props[i]] *= obj.servings;
+        }
+      }
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   vm.saveToFavorites = function(item){
     console.log('in saveToFavorites with:', item);
-    var mealToFavorite = {};
-    mealToFavorite.calories = item.calories / item.servings;
-    mealToFavorite.carbohydrates = item.carbohydrates / item.servings;
-    mealToFavorite.fat = item.fat / item.servings;
-    mealToFavorite.fiber = item.fiber / item.servings;
-    mealToFavorite.name = item.name;
-    mealToFavorite.protein = item.protein / item.servings;
-    mealToFavorite.sodium = item.sodium / item.servings;
-    mealToFavorite.sugar = item.sugar / item.servings;
-    mealToFavorite.servingSize = item.servingSize;
-    console.log('in saveToFavorites with:', mealToFavorite);
-    $http.post('/meals/addFavorite', mealToFavorite).then(function(response){
+    formatEntry(item, "per serving");
+    console.log('sending to POST addFavorite:', item);
+    $http.post('/meals/addFavorite', item).then(function(response){
       console.log('got response from POST /meals/addFavorite');
       getFavorites();
       ///// ADD CONFIRMATION DIALOG /////
@@ -299,19 +312,9 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     };
 
     $scope.addEntry = function(favObj){
-      var favToEnter = {};
-      favToEnter.servings = favObj.servings;
-      favToEnter.name = favObj.name;
-      favToEnter.servingSize = favObj.servingSize;
-      favToEnter.calories = favObj.calories * favObj.servings;
-      favToEnter.carbohydrates = favObj.carbohydrates * favObj.servings;
-      favToEnter.fat = favObj.fat * favObj.servings;
-      favToEnter.fiber = favObj.fiber * favObj.servings;
-      favToEnter.protein = favObj.protein * favObj.servings;
-      favToEnter.sodium = favObj.sodium * favObj.servings;
-      favToEnter.sugar = favObj.sugar * favObj.servings;
-
-      $http.post('/meals/createEntry', favToEnter).then(function(response){
+      formatEntry(favObj, "total");
+      console.log('FAV BJECT ISL:',favObj);
+      $http.post('/meals/createEntry', favObj).then(function(response){
         console.log('got response from POST /meals/createEntry');
         $mdDialog.hide();
         getTodayProgress();
