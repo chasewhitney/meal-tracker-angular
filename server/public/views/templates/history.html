@@ -1,4 +1,4 @@
-<div ng-include="'views/partials/nav.html'"></div>
+<!-- <div ng-include="'views/partials/nav.html'"></div>
 
 <div class="container">
     <h1>Welcome, {{hc.userObject.userName}}!</h1>
@@ -6,4 +6,194 @@
 
 <div ng-repeat="day in hc.fullHistory"class="">
   {{day.date | date}} - <span ng-class="{true: 'carbsGood', false: 'carbsBad'}[day.totals.netCarbs <= 30]">{{day.totals.netCarbs}}g</span>
+</div> -->
+
+
+<div ng-include="'views/partials/nav.html'"></div>
+
+<div class="mealsMain" layout="row" flex-offset="5" flex="90">
+
+  <div class="mealsCol" layout="column" flex="20" layout-align="start center">
+
+    <div class="favorites">
+      <h3>HISTORY</h3>
+
+      <!-- <div layout="row" layout-sm="column" layout-align="space-around" ng-if="!mc.favorites"> /// SPINNER
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div> -->
+
+      <!-- <div layout="row" layout-sm="column" layout-align="center center" ng-if="mc.favorites.length == 0"> /// NO HISTORY
+        No favorites to show.
+      </div> -->
+
+      <div ng-repeat="day in hc.fullHistory" class="" ng-click="hc.dateClicked(day)">
+        {{day.date | date}} - <span ng-class="{true: 'carbsGood', false: 'carbsBad'}[day.totals.netCarbs <= 30]">{{day.totals.netCarbs}}g</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PAGE DIVIDE -->
+
+  <div class="mealsTodayCol" layout="column" flex="80" ng-show="hc.day">
+    <div class="mealsHead" layout="row" layout-align="start center">
+      <div><h1>{{hc.day.date | date}} ENTRIES</h1></div>
+    </div>
+    <div layout="row" layout-align="center center" class="totalList">
+      <div id="dailyTotals" flex="15">
+        TOTALS:
+      </div>
+
+      <!-- <div layout="row" class=""> -->
+
+      <div layout="row" flex style="margin-right: 15px">
+        <!-- <div class="row"> -->
+          <div layout="column" flex class="dailyTotals">
+            <div >
+              Calories
+            </div>
+            <div>
+              {{hc.day.totals.calories | number: 0}}
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Fat
+            </div>
+            <div>
+              {{hc.day.totals.fat | number: 0}}g
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Carbs
+            </div>
+            <div>
+              {{hc.day.totals.carbohydrates | number: 0}}g
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Fiber
+            </div>
+            <div>
+              {{hc.day.totals.fiber | number: 0}}g
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Sugar
+            </div>
+            <div>
+              {{hc.day.totals.sugar | number: 0}}g
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Protein
+            </div>
+            <div>
+              {{hc.day.totals.protein | number: 0}}g
+            </div>
+          </div>
+
+          <div layout="column" flex class="dailyTotals">
+            <div>
+              Sodium
+            </div>
+            <div>
+              {{hc.day.totals.sodium | number: 0}}mg
+            </div>
+          </div>
+        <!-- </div> -->
+      </div>
+
+      <div layout="column" flex="15" style="border-left:1px solid black">
+        <div id="netCarbsLabel">
+          Net Carbs
+        </div>
+        <div id="netCarbs" ng-class="{true: 'carbsGood', false: 'carbsBad'}[hc.day.totals.carbohydrates - hc.day.totals.fiber <= 30]">
+          {{hc.day.totals.carbohydrates - hc.day.totals.fiber| number: 0}}g
+        </div>
+      </div>
+
+
+    </div>
+
+    <div ng-repeat="item in hc.day.entries" layout="row" layout-align="start center" class="todayList">
+      <!-- <div layout="row" layout-align="center center" class="itemBarGraph">
+        <div class="itemBarFat" ng-style="{width: {{item.fatPercent}} + 'px'}">
+
+        </div>
+        <div class="itemBarProtein" ng-style="{width: {{item.proteinPercent}} + 'px'}">
+
+        </div>
+        <div class="itemBarCarbs" ng-style="{width: {{item.carbPercent}} + 'px'}">
+
+        </div>
+      </div> -->
+      <div flex="5" class="todayListServings">
+        {{item.servings}} svg:
+      </div>
+      <div flex="20">
+        {{item.name}}
+      </div>
+      <div flex="10" layout="column">
+        <div class="">
+          {{item.calories | number: 0}} calories
+        </div>
+      </div>
+      <div flex="10" layout="column">
+        <div class="">
+          {{item.fat | number: 0}}g fat
+        </div>
+        <div class="">
+          {{item.carbohydrates | number: 0}}g carbs
+        </div>
+      </div>
+      <div flex="10" layout="column">
+        <div class="">
+          {{item.fiber | number: 0}}g fiber
+        </div>
+        <div class="">
+          {{item.sugar | number: 0}}g sugar
+        </div>
+      </div>
+      <div flex="10" layout="column">
+        <div class="">
+          {{item.protein | number: 0}}g protein
+        </div>
+        <div class="">
+          {{item.sodium | number: 0}}mg sodium
+        </div>
+      </div>
+      <!-- <md-button class="md-raised md-primary" ng-click="mc.saveToFavorites(item)">Save to Favorites</md-button> -->
+      <!-- <md-menu>
+        <md-button class="md-raised md-primary" ng-click="mc.openMenu($mdMenu, $event, item)">OPTIONS</md-button>
+        <md-menu-content width="4">
+          <md-menu-item>
+            <md-button ng-click="mc.saveToFavorites(item)">
+              Add to Favorites
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="mc.editEntry($event, item)">
+              Edit
+            </md-button>
+          </md-menu-item>
+          <md-menu-item>
+            <md-button ng-click="mc.deleteEntry(item)">
+              Delete
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu> -->
+    </div>
+  </div>
+
 </div>
