@@ -32,20 +32,16 @@
       <span style="margin-left:5px; margin-right:15px">OR</span>
       <div class="dropdown">
 
-        <!-- <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="apiSearchText" ng-focus="mc.inFocus = true" ng-blur="mc.inFocus = false; apiSearchText=''; mc.instantData = {}">
-        <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0)) && mc.inFocus"> -->
         <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(mc.apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="mc.apiSearchText">
         <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0)) && mc.apiSearchText != ''">
-
           <div ng-cloak>
             <md-content>
               <md-tabs md-dynamic-height md-border-bottom>
-
                 <md-tab label="All" ng-click="mc.test()">
                   <md-content class="md-padding">
                     <h6>COMMON FOODS</h6>
                     <div ng-repeat="food in mc.instantData.common | limitTo: 5" ng-mousedown="mc.selectCommon($event, food)" class="dropdown-item common-item" layout="row" layout-align="start center">
-                      <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
+
                       <img src="{{food.photo.thumb}}" alt="">
                       <div class="">
                         {{food.food_name}}
@@ -53,7 +49,6 @@
                     </div>
                     <h6>BRANDED FOODS</h6>
                     <div ng-repeat="food in mc.instantData.branded | limitTo: 5" ng-mousedown="mc.selectBranded($event, food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
-                      <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
                       <img src="{{food.photo.thumb}}" alt="">
                       <div layout="column" layout-align="center start">
                         <div class="">
@@ -72,16 +67,13 @@
                           cal
                         </div>
                       </div>
-
                     </div>
                   </md-content>
                 </md-tab>
-
                 <md-tab label="Common">
                   <md-content class="md-padding">
                     <h3>COMMON FOODS</h3>
                     <div ng-repeat="food in mc.instantData.common | limitTo: 10" ng-mousedown="mc.selectCommon($event, food)" class="dropdown-item common-item" layout="row" layout-align="start center">
-                      <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
                       <img src="{{food.photo.thumb}}" alt="">
                       <div class="">
                         {{food.food_name}}
@@ -89,12 +81,10 @@
                     </div>
                   </md-content>
                 </md-tab>
-
                 <md-tab label="Branded">
                   <md-content class="md-padding">
                     <h3>BRANDED FOODS</h3>
                     <div ng-repeat="food in mc.instantData.branded | limitTo: 10" ng-mousedown="mc.selectBranded($event, food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
-                      <!-- <div style="height:30px;width:40px;background-color:blue;display:inline-block;margin:5px"></div> -->
                       <img src="{{food.photo.thumb}}" alt="">
                       <div flex layout="column">
                         <div class="">
@@ -112,27 +102,20 @@
                           cal
                         </div>
                       </div>
-
                     </div>
                   </md-content>
                 </md-tab>
-
               </md-tabs>
             </md-content>
           </div>
         </div>
       </div>
-
     </div>
     <div layout="row" layout-align="center center" class="totalList">
       <div id="dailyTotals" flex="15">
         TOTALS:
       </div>
-
-      <!-- <div layout="row" class=""> -->
-
       <div layout="row" flex style="margin-right: 15px">
-        <!-- <div class="row"> -->
           <div layout="column" flex class="dailyTotals">
             <div >
               Calories
@@ -141,7 +124,6 @@
               {{mc.todayTotal.calories | number: 0}}
             </div>
           </div>
-
           <div layout="column" flex class="dailyTotals">
             <div>
               Fat
@@ -150,7 +132,6 @@
               {{mc.todayTotal.fat | number: 0}}g
             </div>
           </div>
-
           <div layout="column" flex class="dailyTotals">
             <div>
               Carbs
@@ -159,7 +140,6 @@
               {{mc.todayTotal.carbohydrates | number: 0}}g
             </div>
           </div>
-
           <div layout="column" flex class="dailyTotals">
             <div>
               Fiber
@@ -168,7 +148,6 @@
               {{mc.todayTotal.fiber | number: 0}}g
             </div>
           </div>
-
           <div layout="column" flex class="dailyTotals">
             <div>
               Sugar
@@ -177,7 +156,6 @@
               {{mc.todayTotal.sugar | number: 0}}g
             </div>
           </div>
-
           <div layout="column" flex class="dailyTotals">
             <div>
               Protein
@@ -186,7 +164,6 @@
               {{mc.todayTotal.protein | number: 0}}g
             </div>
           </div>
-
           <div layout="column" flex class="dailyTotals">
             <div>
               Sodium
@@ -195,9 +172,7 @@
               {{mc.todayTotal.sodium | number: 0}}mg
             </div>
           </div>
-        <!-- </div> -->
       </div>
-
       <div layout="column" flex="15" style="border-left:1px solid black">
         <div id="netCarbsLabel">
           Net Carbs
@@ -206,27 +181,20 @@
           {{mc.todayTotal.carbohydrates - mc.todayTotal.fiber| number: 0}}g
         </div>
       </div>
-
-
     </div>
-
     <div layout="row" layout-align="center center" ng-if="!mc.today" style="margin-top:20px">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
     <div layout="row" layout-sm="column" layout-align="center center" ng-if="mc.today.length == 0" style="margin-top:20px">
       No entries to show.
     </div>
-
     <div ng-repeat="item in mc.today" layout="row" layout-align="start center" class="todayList">
       <div layout="row" layout-align="center center" class="itemBarGraph">
         <div class="itemBarFat" ng-style="{width: {{item.fatPercent}} + 'px'}">
-
         </div>
         <div class="itemBarProtein" ng-style="{width: {{item.proteinPercent}} + 'px'}">
-
         </div>
         <div class="itemBarCarbs" ng-style="{width: {{item.carbPercent}} + 'px'}">
-
         </div>
       </div>
       <div flex="5" class="todayListServings">
@@ -264,7 +232,6 @@
           {{item.sodium | number: 0}}mg sodium
         </div>
       </div>
-      <!-- <md-button class="md-raised md-primary" ng-click="mc.saveToFavorites(item)">Save to Favorites</md-button> -->
       <md-menu>
         <md-button class="md-raised md-primary" ng-click="mc.openMenu($mdMenu, $event, item)">OPTIONS</md-button>
         <md-menu-content width="4">
@@ -285,7 +252,6 @@
           </md-menu-item>
         </md-menu-content>
       </md-menu>
-    </div>
+     </div> <!--end todayList -->
   </div>
-
 </div>
