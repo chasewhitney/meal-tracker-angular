@@ -5,8 +5,9 @@ myApp.controller('HistoryController', function(UserService, MealsService, $http,
   vm.userObject = UserService.userObject;
   vm.ms = MealsService;
 
-  getGoals();
 
+
+  // Gets user's nutritional goals
   function getGoals(){
     $http.get('/goals').then(function(response){
       vm.goals = response.data[0];
@@ -14,7 +15,7 @@ myApp.controller('HistoryController', function(UserService, MealsService, $http,
   }
 
 
-  // Gets full history
+  // Gets full meal entry history
   vm.getFullHistory = function(){
     $http.get('/meals/fullHistory').then(function(response){
       console.log('fullHistory response data is:', response.data);
@@ -42,40 +43,42 @@ myApp.controller('HistoryController', function(UserService, MealsService, $http,
     }
   }
 
-//// Calculates daily nutrient totals
-function calcTotals(day, nute){
-  console.log('in calcTotals with:', day);
-  console.log('nutes:', nute);
-  console.log('day.entries:', day.entries);
-  day.totals = {};
-  var dt = day.totals;
-  day.entries.sum = function (prop) {
-    var total = 0;
-    for ( let i = 0; i < this.length; i++ ) {
+  // Calculates daily nutrient totals
+  function calcTotals(day, nute){
+    console.log('in calcTotals with:', day);
+    console.log('nutes:', nute);
+    console.log('day.entries:', day.entries);
+    day.totals = {};
+    var dt = day.totals;
+    day.entries.sum = function (prop) {
+      var total = 0;
+      for ( let i = 0; i < this.length; i++ ) {
         total += this[i][prop];
-    }
-    return total;
-  };
-  nute.forEach((v,i)=>{
-    dt[v] = day.entries.sum(v);
-  });
-  dt.netCarbs = dt.carbohydrates - dt.fiber;
-}
-
-// Returns index where array[index][property] = value, or -1;
-function findWithProp(array, property, value) {
-  for(var i = 0; i < array.length; i++) {
-      if(array[i][property] === value) {
-          return i;
       }
+      return total;
+    };
+    nute.forEach((v,i)=>{
+      dt[v] = day.entries.sum(v);
+    });
+    dt.netCarbs = dt.carbohydrates - dt.fiber;
   }
-  return -1;
-}
+  
+  // Returns index where array[index][property] = value, or -1;
+  function findWithProp(array, property, value) {
+    for(var i = 0; i < array.length; i++) {
+      if(array[i][property] === value) {
+        return i;
+      }
+    }
+    return -1;
+  }
 
   //// TEST FUNCTION ////
   vm.test = function(){
     console.log('in test');
   };
 
+  getGoals();
   vm.getFullHistory();
+
 });

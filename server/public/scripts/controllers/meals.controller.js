@@ -4,23 +4,28 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
   vm.ms = MealsService;
+  
+/// TO DO ///
+/// CONFIRMATION DIALOGS
+/// ENTRIES FROM API ARE NOT ACCOUNTING FOR NUMBER OF SERVINGS OTHER THAN 1
+/// CLICK TO ENLARGE API IMAGES
 
   getGoals();
   getTodayProgress();
   getFavorites();
 
-
-   function calcCaloricComposition(today){
+  // Determines caloric content for each meal entry
+  function calcCaloricComposition(today){
     // console.log('calculation caloric compositions');
     for (var i = 0; i < today.length; i++) {
       today[i].fatPercent = ((9 * today[i].fat) / today[i].calories) * 100;
       today[i].proteinPercent = ((4 * today[i].protein) / today[i].calories) * 100;
       today[i].carbPercent = 100 - today[i].fatPercent - today[i].proteinPercent;
-      // console.log('F,P,C:',today[i].fatPercent,today[i].proteinPercent,today[i].carbPercent);
     }
   }
 
-   function calcDailyTotal(today){
+  // Calculates nutrient totals for the day //// REWORK THIS FUNCTION
+  function calcDailyTotal(today){
     // console.log('calculating totals');
     vm.todayTotal = angular.copy(today[0]);
     for (var i = 1; i < today.length; i++) {
@@ -31,6 +36,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     }
   }
 
+  // Creates modal for editing a Favorites entry
   function editFavoriteModal(ev) {
     console.log('in editFavoriteModal editing:', vm.ms.favObject);
     $mdDialog.show({
@@ -43,6 +49,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   }
 
+  // Gets user's saved favorites
   function getFavorites(){
     $http.get('/meals/getFavorites').then(function(response){
       console.log('getFavorites response data is:', response.data);
@@ -53,6 +60,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   }
 
+  // Gets user's nutritional goals
   function getGoals(){
     $http.get('/goals').then(function(response){
       vm.goals = response.data[0];
@@ -69,6 +77,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   }
 
+  // Creates modal for adding a meal entry
   vm.addEntryModal = function(ev) {
     $mdDialog.show({
       controller: DialogController,
@@ -80,6 +89,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   };
 
+  // Brings up modal with Favorites entry information and options
   vm.clickFavoriteModal = function(ev, favObject) {
     console.log('favorite clicked:', favObject);
     vm.ms.favObject = favObject;
@@ -94,6 +104,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   };
 
+  // Send a meal entry to be added to the database
   vm.createMealEntry = function(name, servingSize, servings, meal){
     mealToEnter = meal;
     for (var key in mealToEnter) {
@@ -110,6 +121,8 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   };
 
+
+  // Delete a meal entry from the database
   vm.deleteEntry = function(entry){
     $http.delete('/meals/deleteEntry/' + entry._id).then(function(response){
       console.log('Entry deleted.');
@@ -118,6 +131,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   };
 
+  // Update a meal entry in the database
   vm.editEntry = function(ev, entry){
     vm.ms.entryToEdit = entry;
     $mdDialog.show({
@@ -130,19 +144,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   };
 
-  // Gets history for specific date ///UNUSED SO FAR/// NO ROUTE SERVER-SIDE
-  vm.getHistoricalDaily = function(){
-    $http.get('/meals/searchHistory').then(function(response){
-      console.log('searchHistory response data is:', response.data);
-      var data = response.data;
-      var histObj = {};
-
-      // Turn history into an object where key is the date and the value is an array of entries pertaining to that date
-      data.forEach((v, i) =>( histObj[v.date] ? (histObj[v.date].push(v)) : (histObj[v.date] = [v])));
-      console.log('histObj is:', histObj);
-    });
-
-  };
 
   // Run when user enters text into the API search dropdown
   vm.instantSearch = function(toQuery){
@@ -159,8 +160,9 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     }
   };
 
-  vm.openMenu = function($mdMenu, ev, item) {
-    console.log('in openMenu(), item is:', item);
+  // Brings up the options menu for meal entries
+  vm.entryOptionsMenu = function($mdMenu, ev, item) {
+    console.log('in entryOptionsMenu(), item is:', item);
     $mdMenu.open(ev);
     vm.menuItem = item;
     console.log('vm.menuItem is:', vm.menuItem);
@@ -187,6 +189,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     }
   }
 
+  // Save an entry to favorites
   vm.saveToFavorites = function(item){
     console.log('in saveToFavorites with:', item);
     formatEntry(item, "per serving");
