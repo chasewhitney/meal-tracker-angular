@@ -40,7 +40,7 @@
                 <md-tab label="All" ng-click="mc.test()">
                   <md-content class="md-padding">
                     <h6>COMMON FOODS</h6>
-                    <div ng-repeat="food in mc.instantData.common | limitTo: 5" ng-mousedown="mc.selectCommon($event, food)" class="dropdown-item common-item" layout="row" layout-align="start center">
+                    <div ng-repeat="food in mc.instantData.common | limitTo: 5" ng-mousedown="mc.selectAPIItem($event, food.food_name, 'common')" class="dropdown-item common-item" layout="row" layout-align="start center">
 
                       <img src="{{food.photo.thumb}}" alt="">
                       <div class="">
@@ -48,7 +48,7 @@
                       </div>
                     </div>
                     <h6>BRANDED FOODS</h6>
-                    <div ng-repeat="food in mc.instantData.branded | limitTo: 5" ng-mousedown="mc.selectBranded($event, food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
+                    <div ng-repeat="food in mc.instantData.branded | limitTo: 5" ng-mousedown="mc.selectAPIItem($event, food.nix_item_id, 'branded')" class="dropdown-item branded-item" layout="row" layout-align="start center">
                       <img src="{{food.photo.thumb}}" alt="">
                       <div layout="column" layout-align="center start">
                         <div class="">
@@ -73,7 +73,7 @@
                 <md-tab label="Common">
                   <md-content class="md-padding">
                     <h3>COMMON FOODS</h3>
-                    <div ng-repeat="food in mc.instantData.common | limitTo: 10" ng-mousedown="mc.selectCommon($event, food)" class="dropdown-item common-item" layout="row" layout-align="start center">
+                    <div ng-repeat="food in mc.instantData.common | limitTo: 10" ng-mousedown="mc.selectAPIItem($event, food.food_name, 'common')" class="dropdown-item common-item" layout="row" layout-align="start center">
                       <img src="{{food.photo.thumb}}" alt="">
                       <div class="">
                         {{food.food_name}}
@@ -84,7 +84,7 @@
                 <md-tab label="Branded">
                   <md-content class="md-padding">
                     <h3>BRANDED FOODS</h3>
-                    <div ng-repeat="food in mc.instantData.branded | limitTo: 10" ng-mousedown="mc.selectBranded($event, food)" class="dropdown-item branded-item" layout="row" layout-align="start center">
+                    <div ng-repeat="food in mc.instantData.branded | limitTo: 10" ng-mousedown="mc.selectAPIItem($event, food.nix_item_id, 'branded')" class="dropdown-item branded-item" layout="row" layout-align="start center">
                       <img src="{{food.photo.thumb}}" alt="">
                       <div flex layout="column">
                         <div class="">

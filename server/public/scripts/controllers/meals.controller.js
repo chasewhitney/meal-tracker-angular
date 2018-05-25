@@ -7,7 +7,6 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
 
 /// TO DO ///
 /// CONFIRMATION DIALOGS
-/// ENTRIES COMING DIRECTLY FROM API ARE NOT ACCOUNTING FOR NUMBER OF SERVINGS OTHER THAN 1
 /// CLICK/HOVER TO ENLARGE API IMAGES
 /// HISTORICAL ENTRIES EDITABLE
 /// REWORK CALCDAILYTOTALS FUNCTION
@@ -177,9 +176,8 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     var props = ["calories", "carbohydrates", "fat", "fiber", "protein", "sodium", "sugar"];
     try {
       if(math != "per serving" && math != "total") throw "Illegal math argument sent to formatEntry";
-      if(!obj._id || !obj.$$hashKey) throw "Invalid object sent to formatEntry"
-      delete obj._id;
-      delete obj.$$hashKey;
+      if(obj._id) delete obj._id;
+      if(obj.$$hashKey) delete obj.$$hashKey;
       if(math == "per serving"){
         for (var i = 0; i < props.length; i++) {
           obj[props[i]] /= obj.servings;
@@ -206,31 +204,18 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   };
 
-  // Run when a "branded" food item is selected from API search dropdown
-  vm.selectBranded = function(ev, item){
-    console.log('selected branded:', item.nix_item_id);
-    var config = {params:{toQuery:item.nix_item_id}};
-    $http.get('/api/branded', config).then(function(response){
-      console.log('got response');
+  // Run when a food item is selected from API search dropdown
+  vm.selectAPIItem = function(ev, itemID, type){
+    // console.log(`in selectAPI with: ${type} ${itemID}`);
+    var config = {params:{toQuery:itemID}};
+    $http.get('/api/' + type, config).then(function(response){
+      console.log('/api/' + type + ' GET response usable data:', response.data.foods[0]);
       var data = response.data.foods[0];
-      console.log('data:', data);
-      vm.ms.apiFoodObject = {};
-
-      vm.ms.apiFoodObject.name = data.food_name;
-      vm.ms.apiFoodObject.servingSize = data.serving_qty + data.serving_unit;
-      vm.ms.apiFoodObject.servings = 1;
-      vm.ms.apiFoodObject.calories = parseInt(data.nf_calories);
-      vm.ms.apiFoodObject.fat = parseInt(data.nf_total_fat);
-      vm.ms.apiFoodObject.carbohydrates = parseInt(data.nf_total_carbohydrate);
-      vm.ms.apiFoodObject.fiber = parseInt(data.nf_dietary_fiber);
-      vm.ms.apiFoodObject.sugar = parseInt(data.nf_sugars);
-      vm.ms.apiFoodObject.protein = parseInt(data.nf_protein);
-      vm.ms.apiFoodObject.sodium = parseInt(data.nf_sodium);
-
+      vm.ms.apiFoodObject = createFoodObject(data);
       vm.apiSearchText = '';
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/partials/addFromCommon.html',
+        templateUrl: '/views/partials/addFromAPI.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true,
@@ -239,43 +224,28 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
     });
   };
 
-  // Run when a "common" food item is selected from API search dropdown
-  vm.selectCommon = function(ev, item){
-    console.log('selected common:', item.food_name);
-    var config = {params:{toQuery:item.food_name}};
-    $http.get('api/common', config).then(function(response){
-      console.log('got response');
-      var data = response.data.foods[0];
-      console.log('data:', data);
-      vm.ms.apiFoodObject = {};
-
-      vm.ms.apiFoodObject.name = data.food_name;
-      vm.ms.apiFoodObject.servingSize = data.serving_qty + data.serving_unit;
-      vm.ms.apiFoodObject.servings = 1;
-      vm.ms.apiFoodObject.calories = parseInt(data.nf_calories);
-      vm.ms.apiFoodObject.fat = parseInt(data.nf_total_fat);
-      vm.ms.apiFoodObject.carbohydrates = parseInt(data.nf_total_carbohydrate);
-      vm.ms.apiFoodObject.fiber = parseInt(data.nf_dietary_fiber);
-      vm.ms.apiFoodObject.sugar = parseInt(data.nf_sugars);
-      vm.ms.apiFoodObject.protein = parseInt(data.nf_protein);
-      vm.ms.apiFoodObject.sodium = parseInt(data.nf_sodium);
-
-      vm.apiSearchText = '';
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: '/views/partials/addFromCommon.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-        clickOutsideToClose:true,
-        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-      });
-    });
-  };
+  function createFoodObject(data){
+    console.log('in createFoodObject with:', data);
+    var foodObj = {};
+    foodObj.name = data.food_name;
+    foodObj.servingSize = data.serving_qty + data.serving_unit;
+    foodObj.servings = 1;
+    foodObj.calories = parseInt(data.nf_calories);
+    foodObj.fat = parseInt(data.nf_total_fat);
+    foodObj.carbohydrates = parseInt(data.nf_total_carbohydrate);
+    foodObj.fiber = parseInt(data.nf_dietary_fiber);
+    foodObj.sugar = parseInt(data.nf_sugars);
+    foodObj.protein = parseInt(data.nf_protein);
+    foodObj.sodium = parseInt(data.nf_sodium);
+    return foodObj;
+  }
 
   //// TEST FUNCTION ////
   vm.test = function(){
     console.log('in test');
   };
+
+
 
   function DialogController(MealsService, $scope, $mdDialog) {
     $scope.favObject = MealsService.favObject;
@@ -321,10 +291,10 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
       $mdDialog.hide();
     };
 
-    $scope.addEntry = function(favObj){
-      formatEntry(favObj, "total");
-      console.log('FAV BJECT ISL:',favObj);
-      $http.post('/meals/createEntry', favObj).then(function(response){
+    $scope.addEntry = function(foodObj){
+      console.log('ADDING ENTRY FOODOBJ', foodObj);
+      formatEntry(foodObj, "total");
+      $http.post('/meals/createEntry', foodObj).then(function(response){
         console.log('got response from POST /meals/createEntry');
         $mdDialog.hide();
         getTodayProgress();
