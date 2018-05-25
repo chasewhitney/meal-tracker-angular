@@ -4,11 +4,12 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
   vm.ms = MealsService;
-  
+
 /// TO DO ///
 /// CONFIRMATION DIALOGS
-/// ENTRIES FROM API ARE NOT ACCOUNTING FOR NUMBER OF SERVINGS OTHER THAN 1
-/// CLICK TO ENLARGE API IMAGES
+/// ENTRIES DIRECTLY FROM API ARE NOT ACCOUNTING FOR NUMBER OF SERVINGS OTHER THAN 1
+/// CLICK/HOVER TO ENLARGE API IMAGES
+/// HISTORICAL ENTRIES EDITABLE
 
   getGoals();
   getTodayProgress();
