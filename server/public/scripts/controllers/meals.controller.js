@@ -7,9 +7,13 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
 
 /// TO DO ///
 /// CONFIRMATION DIALOGS
-/// ENTRIES DIRECTLY FROM API ARE NOT ACCOUNTING FOR NUMBER OF SERVINGS OTHER THAN 1
+/// ENTRIES COMING DIRECTLY FROM API ARE NOT ACCOUNTING FOR NUMBER OF SERVINGS OTHER THAN 1
 /// CLICK/HOVER TO ENLARGE API IMAGES
 /// HISTORICAL ENTRIES EDITABLE
+/// REWORK CALCDAILYTOTALS FUNCTION
+/// STYLING/LAYOUT
+/// VALIDATION FOR ENTRIES
+
 
   getGoals();
   getTodayProgress();
@@ -214,6 +218,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
 
       vm.ms.apiFoodObject.name = data.food_name;
       vm.ms.apiFoodObject.servingSize = data.serving_qty + data.serving_unit;
+      vm.ms.apiFoodObject.servings = 1;
       vm.ms.apiFoodObject.calories = parseInt(data.nf_calories);
       vm.ms.apiFoodObject.fat = parseInt(data.nf_total_fat);
       vm.ms.apiFoodObject.carbohydrates = parseInt(data.nf_total_carbohydrate);
@@ -246,6 +251,7 @@ myApp.controller('MealsController', function(UserService, MealsService, $http, $
 
       vm.ms.apiFoodObject.name = data.food_name;
       vm.ms.apiFoodObject.servingSize = data.serving_qty + data.serving_unit;
+      vm.ms.apiFoodObject.servings = 1;
       vm.ms.apiFoodObject.calories = parseInt(data.nf_calories);
       vm.ms.apiFoodObject.fat = parseInt(data.nf_total_fat);
       vm.ms.apiFoodObject.carbohydrates = parseInt(data.nf_total_carbohydrate);

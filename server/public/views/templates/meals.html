@@ -30,8 +30,8 @@
       <div flex></div>
       <div><md-button class="md-raised md-primary" ng-click="mc.addEntryModal($event)">Add an Item</md-button></div>
       <span style="margin-left:5px; margin-right:15px">OR</span>
-      <div class="dropdown">
 
+      <div class="dropdown">
         <input id="apiSearchBox" type="text" ng-keyup="mc.instantSearch(mc.apiSearchText)" placeholder="Add from Nutritionix API search" ng-model="mc.apiSearchText">
         <div id="myDropdown" class="dropdown-content" ng-show="((mc.instantData.branded.length > 0) || (mc.instantData.common.length > 0)) && mc.apiSearchText != ''">
           <div ng-cloak>
