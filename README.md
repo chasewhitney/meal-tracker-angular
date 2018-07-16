@@ -1,6 +1,6 @@
 # KetoTracker
 
-KetoTracker is a web application that allows the user to easily track daily dietary intake. When tracking meals, the user is able to see a running nutrient total for the day including calories, fat, carbohydrates, protein, and other nutritional information as well as view their historical daily entries.  KetoTracker also tracks net carbohydrate intake and will display this number in green if within a limit in line with a ketogenic diet, and will display in red if net carbohydrate intake exceeds this limit.
+KetoTracker is a web application that allows the user to easily track daily dietary intake. When tracking meals, the user is able to see a running nutrient total for the day including calories, fat, carbohydrates, protein, and other nutritional information as well as view their historical daily entries.  KetoTracker also tracks net carbohydrate intake and will display this number in green if within a limit in line with a ketogenic diet, and will display in red if net carbohydrate intake exceeds this limit. For quick and easy nutritional information entry, KetoTracker utilizes the Nutritionix API.
 
 ## Built With
 
