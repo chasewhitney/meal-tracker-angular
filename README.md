@@ -29,7 +29,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-A Mongo database with 4 collections: users, usegoals, mealentries, and mealfavorites.
+A Mongo database with 4 collections: users, usergoals, mealentries, and mealfavorites.
 
 ## Screen Shot
 
