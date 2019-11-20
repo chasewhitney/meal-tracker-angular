@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/chasewhitney/food-tracker#readme",
   "dependencies": {
-    "angular": "^1.6.9",
+    "angular": "^1.7.9",
     "angular-animate": "^1.6.9",
     "angular-aria": "^1.6.9",
     "angular-material": "^1.1.7",
