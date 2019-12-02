@@ -18,21 +18,21 @@
   },
   "homepage": "https://github.com/chasewhitney/food-tracker#readme",
   "dependencies": {
-    "angular": "^1.6.9",
-    "angular-animate": "^1.6.9",
-    "angular-aria": "^1.6.9",
-    "angular-material": "^1.1.7",
-    "angular-messages": "^1.6.9",
-    "angular-route": "^1.6.9",
+    "angular": "^1.7.9",
+    "angular-animate": "^1.7.9",
+    "angular-aria": "^1.7.9",
+    "angular-material": "^1.1.20",
+    "angular-messages": "^1.7.9",
+    "angular-route": "^1.7.9",
     "bcrypt": "^1.0.3",
-    "body-parser": "^1.18.2",
-    "bootstrap": "^4.1.1",
-    "express": "^4.16.2",
-    "express-session": "^1.15.6",
-    "mongoose": "^5.0.9",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "mongoose": "^5.7.13",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
-    "request": "^2.83.0"
+    "request": "^2.88.0"
   }
 }
