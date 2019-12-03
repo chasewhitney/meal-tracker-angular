@@ -32,9 +32,21 @@ body {
   margin-top: 14px;
 }
 
-.dailyTotals {
-  margin-right: 10px;
-  font-size: 2.4rem;
+.totalCellHeader {
+  font-size: 1.6rem;
+  font-weight: bold;
+  border-bottom: 1px solid #006f46;
+}
+
+.totalCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.dateBox {
+  font-size: 2.5rem;
   text-align: center;
 }
 
@@ -97,19 +109,6 @@ body {
   margin: 2px;
 }
 
-.home {
-  font-size: 6rem;
-  width: 100%;
-  padding: 0.5rem;
-}
-
-.home > div {
-  width: 50%;
-  text-align: center;
-  margin: auto;
-  margin-top: 10%;
-}
-
 .itemBarCarbs {
   background-color: #f0ab00;
   height: 20px;
@@ -131,15 +130,17 @@ body {
 }
 
 .loginBox {
-  min-width: 80rem;
-  min-height: 30rem;
   text-shadow: 2px 2px #d5c4a7;
   color: #005838;
-  text-align: center;
   font-weight: 600;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.loginBox > h1 {
+.loginBox h1 {
   font-size: 8.4rem;
   margin-bottom: 15px;
 }
@@ -147,6 +148,14 @@ body {
 .loginBox form {
   font-size: 2rem;
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginInput {
+  align-self: flex-end !important;
 }
 
 .loginBox a {
@@ -180,10 +189,16 @@ body {
 }
 
 .mealsHead {
+  height: 6rem;
+  padding: 0 2rem 1rem 2rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
   border-bottom: 1px solid black;
-  text-align: center;
-  padding: 0 20px 10px 20px;
-  height: 60px;
+
+  & > * {
+    margin: 1rem;
+  }
 }
 
 .mealsHead h1 {
@@ -196,6 +211,14 @@ body {
   padding: 5rem;
   margin: auto;
   width: 90%;
+  min-width: 1000px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .mealsMain {
+    width: 100%;
+    padding: 0;
+  }
 }
 
 .mealsTodayCol {
@@ -271,11 +294,12 @@ body {
 }
 .totalList {
   border-bottom: 1px solid black;
+  font-size: 1.8rem;
 }
 
 #dailyTotals {
-  font-size: 3.2rem;
   text-align: center;
+  font-size: 2.5rem;
 }
 
 #netCarbsLabel {
@@ -291,7 +315,9 @@ body {
 /* BEGIN API SEARCH DROPDOWN */
 .dropdown {
   position: relative;
-  min-width: 400px;
+  width: 40rem;
+  outline: none;
+  margin-right: 0.5rem;
 }
 
 .dropdown-content {
@@ -339,9 +365,8 @@ body {
 
 #apiSearchBox {
   width: 100%;
-  border: 1px solid #e7e7e7;
-  border-radius: 3px;
-  height: 30px;
+  line-height: 2.8rem;
+  padding-left: 0.5rem;
 }
 
 /* END API SEARCH DROPDOWN */

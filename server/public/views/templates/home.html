@@ -1,23 +1,21 @@
-<div class="home">
-
 
   <div class="loginBox">
     <h1>MealTracker</h1>
       <form ng-submit="lc.login()">
-        <div>
-          <label for="username">Username:</label>
-          <input type="text" ng-model="lc.user.username" />
-        </div>
-        <div>
-          <label for="password">Password:</label>
-          <input type="password" ng-model="lc.user.password" />
-        </div>
-        <div>
-          <input type="submit" name="submit" value="Log In" />
-          <a href="#register">Register</a>
-        </div>
+
+          <div class="loginInput">
+            <label for="username">Username:</label>
+            <input type="text" ng-model="lc.user.username" />
+          </div>
+          <div class="loginInput">
+            <label for="password">Password:</label>
+            <input type="password" ng-model="lc.user.password" />
+          </div>
+          <div>
+            <input type="submit" name="submit" value="Log In" />
+            <a href="#register">Register</a>
+          </div>
+
       </form>
       <h2 role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
     </div>
-
-</div>
