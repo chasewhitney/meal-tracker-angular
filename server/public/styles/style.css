@@ -300,13 +300,15 @@ body {
 }
 
 #netCarbsLabel {
-  font-size: 2.4rem;
+  font-size: 2rem;
   text-align: center;
+  font-weight: bold;
 }
 
 #netCarbs {
-  font-size: 3.2rem;
+  font-size: 2.5rem;
   text-align: center;
+  font-weight: bold;
 }
 
 /* BEGIN API SEARCH DROPDOWN */
