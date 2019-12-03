@@ -2,6 +2,8 @@
 
 ![Screenshot of the dashboard](server/public/resources/angularDashboard.png)
 
+![Screenshot of the dashboard](server/public/resources/angularDropdown.png)
+
 Meal-Tracker is a web application that allows the user to easily track daily dietary intake. When tracking meals, the user is able to see a running nutrient total for the day including calories, fat, carbohydrates, protein, and other nutritional information as well as view their historical daily entries. Meal-Tracker also tracks net carbohydrate intake and will display this number in green if within a limit in line with a ketogenic diet, and will display in red if net carbohydrate intake exceeds this limit. For quick and easy nutritional information entry, Meal-Tracker utilizes the Nutritionix API.
 
 ## Built With

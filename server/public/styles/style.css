@@ -286,9 +286,39 @@ body {
 .todayList > div {
   padding: 5px;
 }
+
 .todayListServings {
   text-align: right;
 }
+
+.tooltip {
+  position: relative;
+}
+
+/* Tooltip text */
+.tooltip .tooltipText {
+  visibility: hidden;
+  padding: 0.7rem;
+  background-color: #fff;
+  color: black;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 3px;
+  border: 1px solid black;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1000;
+  cursor: pointer;
+  text-align: center;
+  bottom: 15px;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltipText {
+  visibility: visible;
+}
+
 .totalList {
   border-bottom: 1px solid black;
   font-size: 1.8rem;
@@ -338,10 +368,12 @@ body {
   margin: 5px;
 }
 
-.dropdown-content h6 {
+.dropdown-content h4,
+h3 {
   border-bottom: 1px solid #e7e7e7;
-  margin: 5px;
-  padding: 5px;
+  margin-bottom: 5px;
+  padding: 8px;
+  text-align: center;
 }
 .dropdown-item {
   border-bottom: 1px solid grey;
@@ -352,6 +384,10 @@ body {
 .dropdown-item:hover {
   background-color: #f1f1f1;
   cursor: pointer;
+}
+
+.dropdownResults {
+  padding: 0 16px 16px 16px;
 }
 
 .common-item {

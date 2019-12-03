@@ -36,8 +36,8 @@
               <md-content>
                 <md-tabs md-dynamic-height md-border-bottom>
                   <md-tab label="All" ng-click="mc.test()">
-                    <md-content class="md-padding">
-                      <h6>COMMON FOODS</h6>
+                    <md-content class="dropdownResults">
+                      <h4>COMMON FOODS</h4>
                       <div ng-repeat="food in mc.instantData.common | limitTo: 5" ng-mousedown="mc.selectAPIItem($event, food.food_name, 'common')" class="dropdown-item common-item" layout="row" layout-align="start center">
 
                         <img src="{{food.photo.thumb}}" alt="">
@@ -45,7 +45,7 @@
                           {{food.food_name}}
                         </div>
                       </div>
-                      <h6>BRANDED FOODS</h6>
+                      <h4>BRANDED FOODS</h4>
                       <div ng-repeat="food in mc.instantData.branded | limitTo: 5" ng-mousedown="mc.selectAPIItem($event, food.nix_item_id, 'branded')" class="dropdown-item branded-item" layout="row" layout-align="start center">
                         <img src="{{food.photo.thumb}}" alt="">
                         <div layout="column" layout-align="center start">
@@ -69,7 +69,7 @@
                     </md-content>
                   </md-tab>
                   <md-tab label="Common">
-                    <md-content class="md-padding">
+                    <md-content class="dropdownResults">
                       <h3>COMMON FOODS</h3>
                       <div ng-repeat="food in mc.instantData.common | limitTo: 10" ng-mousedown="mc.selectAPIItem($event, food.food_name, 'common')" class="dropdown-item common-item" layout="row" layout-align="start center">
                         <img src="{{food.photo.thumb}}" alt="">
@@ -80,7 +80,7 @@
                     </md-content>
                   </md-tab>
                   <md-tab label="Branded">
-                    <md-content class="md-padding">
+                    <md-content class="dropdownResults">
                       <h3>BRANDED FOODS</h3>
                       <div ng-repeat="food in mc.instantData.branded | limitTo: 10" ng-mousedown="mc.selectAPIItem($event, food.nix_item_id, 'branded')" class="dropdown-item branded-item" layout="row" layout-align="start center">
                         <img src="{{food.photo.thumb}}" alt="">
@@ -192,11 +192,14 @@
       </div>
       <div ng-repeat="item in mc.today" layout="row" layout-align="start center" class="todayList">
         <div layout="row" layout-align="center center" class="itemBarGraph">
-          <div class="itemBarFat" ng-style="{width: {{item.fatPercent}} + 'px'}">
+          <div class="itemBarFat tooltip" ng-style="{width: {{item.fatPercent}} + 'px'}">
+            <span class="tooltipText">~{{item.fatPercent | number: 0}}% fat</span>
           </div>
-          <div class="itemBarProtein" ng-style="{width: {{item.proteinPercent}} + 'px'}">
+          <div class="itemBarProtein tooltip" ng-style="{width: {{item.proteinPercent}} + 'px'}">
+            <span class="tooltipText">~{{item.proteinPercent | number: 0}}% protein</span>
           </div>
-          <div class="itemBarCarbs" ng-style="{width: {{item.carbPercent}} + 'px'}">
+          <div class="itemBarCarbs tooltip" ng-style="{width: {{item.carbPercent}} + 'px'}">
+            <span class="tooltipText">~{{item.carbPercent | number: 0}}% carbs</span>
           </div>
         </div>
         <div flex="5" class="todayListServings">
