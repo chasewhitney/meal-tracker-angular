@@ -14,7 +14,7 @@ myApp.controller("MealsController", function(
   vm.userObject = UserService.userObject;
   vm.ms = MealsService;
 
-  var date = new Date("2010-10-11T00:00:00+05:30");
+  var date = new Date();
   vm.todayDate =
     (date.getMonth() > 8 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) +
     "/" +

@@ -1,28 +1,32 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 // Mongo Connection //
-var mongoURI = '';
+var mongoURI = "";
 // process.env.MONGODB_URI will only be defined if you
 // are running on Heroku
 if (process.env.MONGODB_URI != undefined) {
-    // use the string value of the environment variable
-    mongoURI = process.env.MONGODB_URI;
+  // use the string value of the environment variable
+  mongoURI = process.env.MONGODB_URI;
 } else {
-    // use the local database server
-    mongoURI = require('../config.js').mongoURI;
+  // use the local database server
+  mongoURI = require("../config.js").mongoURI;
 }
 
-mongoose.connect(mongoURI);
+mongoose.connect(
+  mongoURI,
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
+mongoose.set("useCreateIndex", true);
 
-mongoose.connection.on('error', function (err) {
-    if (err) {
-        console.log("MONGO ERROR: ", err);
-    }
-    res.sendStatus(500);
+mongoose.connection.on("error", function(err) {
+  if (err) {
+    console.log("MONGO ERROR: ", err);
+  }
+  res.sendStatus(500);
 });
 
-mongoose.connection.on('open', function () {
-    console.log("Connected to Mongo!");
+mongoose.connection.on("open", function() {
+  console.log("Connected to Mongo!");
 });
 
 module.exports = mongoose;
