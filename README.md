@@ -35,10 +35,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 A Mongo database with 4 collections: users, usergoals, mealentries, and mealfavorites.
 
-## Screen Shot
-
-Coming soon.
-
 ### Completed Features
 
 - [x] Incorporate Nutritionix API
